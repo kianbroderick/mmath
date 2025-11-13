@@ -138,6 +138,7 @@ def main_loop(
 
 type Trial = Callable[..., QuestionResult]
 
+
 def main() -> None:
     try:
         while True:

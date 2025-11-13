@@ -1,6 +1,5 @@
 import os
 
-import numexpr
 from colorama import Fore
 
 
@@ -113,7 +112,7 @@ def get_expr(message: str) -> float:
         user_input = input(message).lower().strip()
         quit_check(user_input)
         try:
-            num = numexpr.evaluate(user_input)
+            num = eval(user_input)
             num = float(num)
             break
         except Exception:
