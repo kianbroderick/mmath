@@ -44,8 +44,10 @@ class QuestionLog:
         )
         number_data = [item[0] for item in sorted_questions]
 
-        q_times = [item[1]["time"] for item in sorted_questions]
+        q_times: list[float | int] = [item[1]["time"] for item in sorted_questions]
         q_width: int = max(len(f"{x:.{ROUNDING_NUM}f}") for x in q_times)
+        error_nums: list[float | int] = [item[1]["n_errors"] for item in sorted_questions]
+        err_width: int = max(len(str(x)) for x in error_nums)
 
         l_width: int = 0
         r_width: int = 0
@@ -70,7 +72,7 @@ class QuestionLog:
             )
             if result_dict["n_errors"] != 0:
                 print(
-                    f"{Fore.RED}{result_dict['n_errors']} error{Fore.RESET}",
+                    f"{Fore.RED}{result_dict['n_errors']:<{err_width}} error{Fore.RESET}",
                     end="",
                 )
                 if result_dict["n_errors"] > 1:
