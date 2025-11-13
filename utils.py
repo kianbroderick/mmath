@@ -1,4 +1,8 @@
+import ast
+import operator
 import os
+from collections.abc import Callable
+from typing import Any
 
 from colorama import Fore
 
@@ -82,11 +86,9 @@ def get_float(message: str) -> float:
         user_input = input(message).lower().strip()
         quit_check(user_input)
         try:
-            num: float = float(user_input)
-            break
+            return float(user_input)
         except ValueError:
             print(f"{Fore.RED}Invalid input. Please enter a valid number.{Fore.RESET}")
-    return num
 
 
 def get_int(message: str, pos: bool = False) -> int:  # noqa: FBT001, FBT002
@@ -107,15 +109,68 @@ def get_int(message: str, pos: bool = False) -> int:  # noqa: FBT001, FBT002
     return num
 
 
+allowed_operators: dict[Any, Callable[..., Any]] = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.USub: operator.neg,
+    ast.UAdd: operator.pos,
+}
+
+
+def safe_eval(expr: str) -> float:
+    try:
+        tree: ast.Expression = ast.parse(expr, mode="eval")
+
+        def eval_node(node) -> float:
+            # numeric constants
+            if isinstance(node, ast.Constant):
+                if isinstance(node.value, (int, float)):
+                    return node.value
+                raise ValueError("Only numeric constants are allowed.")
+
+            # binary operations (+, -, *, /)
+            elif isinstance(node, ast.BinOp):
+                if type(node.op) not in allowed_operators:
+                    raise ValueError(f"Unsupported operator: {type(node.op).__name__}")
+                left = eval_node(node.left)
+                right = eval_node(node.right)
+                return allowed_operators[type(node.op)](left, right)
+
+            # unary operations (+, -)
+            elif isinstance(node, ast.UnaryOp):
+                if type(node.op) not in allowed_operators:
+                    raise ValueError(
+                        f"Unsupported unary operator: {type(node.op).__name__}"
+                    )
+                operand = eval_node(node.operand)
+                return allowed_operators[type(node.op)](operand)
+
+            # any other node type is disallowed
+            else:
+                raise ValueError(f"Unsupported syntax: {type(node).__name__}")
+
+        return eval_node(tree.body)
+
+    except Exception as e:
+        raise ValueError(e)
+
+
 def get_expr(message: str) -> float:
     while True:
         user_input = input(message).lower().strip()
         quit_check(user_input)
         try:
-            num = eval(user_input)
+            return float(user_input)
+        except ValueError:
+            pass
+        try:
+            num = safe_eval(user_input)
             num = float(num)
+            print(f"Evaluation: {num:.6f}")
             break
-        except Exception:
+        except ValueError:
             print(
                 f"{Fore.RED}Invalid input. Please enter a valid expression.{Fore.RESET}"
             )
