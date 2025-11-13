@@ -63,7 +63,7 @@ class QuestionLog:
                 f"{Fore.BLUE}{a:>{l_width}}"
                 f"{Fore.YELLOW} {op:^{op_width}} "
                 f"{Fore.BLUE}{b:<{r_width}}"
-                f"{Fore.GREEN} | {result_dict['time']:<{q_width}.{ROUNDING_NUM}f}"
+                f"{Fore.GREEN} | {result_dict['time']:>{q_width}.{ROUNDING_NUM}f}"
                 f" seconds"
                 f" | {Fore.RESET}",
                 end="",

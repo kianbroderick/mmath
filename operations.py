@@ -54,11 +54,16 @@ def wrong() -> int:
     return 1
 
 
-def print_ticket(ticket: dict[str, Any]) -> None:
-    width: int = max(map(len, ticket.keys()))
+def print_ticket(ticket: dict[str, Any], *, units: str = "") -> None:
+    msg_width: int = max(map(len, ticket.keys()))
+    num_width: int = max(len(f"{x:.{ROUND_NUM}f}") for x in ticket.values())
     print()
     for msg, num in ticket.items():
-        print(f"{Fore.BLUE}{msg:<{width}}{Fore.YELLOW}{num}")
+        print(
+            f"{Fore.BLUE}{msg:<{msg_width}}"
+            f"{Fore.YELLOW}{num:>{num_width}.{ROUND_NUM}f}"
+            f"{Fore.BLUE} {units}{Fore.RESET}"
+        )
     enter_to_cont()
 
 
@@ -206,7 +211,7 @@ def squareroot(top: int) -> QuestionResult:
         "Newton's method approximation: ": best_answer,
         "Actual: ": true_root,
         "Difference: ": best_answer - true_root,
-        "Accepted Range: ": correct_range,
+        # "Accepted Range: ": correct_range,
     }
     print_ticket(ticket)
     return QuestionResult(num_wrong, q_time, ("sqrt", str(a)))
@@ -320,13 +325,13 @@ def distance_conv(top: int) -> QuestionResult:
         ans = get_float(f"{to.capitalize()}: ")
     q_time: float = time.time() - start
     ticket: dict[str, float | str] = {
-        "Exact: ": round(ratio * a, ROUND_NUM),
-        "You were off by ": round(abs(ans - correct), ROUND_NUM),
-        "1.6 approximation: ": round(a * approx, ROUND_NUM),
+        "Exact: ": ratio * a,
+        "You were off by ": abs(ans - correct),
+        "1.6 approximation: ": a * approx,
         "Closest integer: ": closest_integer,
         # "Accepted range: ": f"{(lower_bound, upper_bound)}",
     }
-    print_ticket(ticket)
+    print_ticket(ticket, units=to_short)
     return QuestionResult(num_wrong, q_time, (f"{orig_short} -> {to_short}", f"{a}"))
 
 
@@ -361,12 +366,12 @@ def temp_conv(top: int) -> QuestionResult:
         ans = get_float(f"{to.capitalize()}: ")
     q_time: float = time.time() - start
     ticket: dict[str, float] = {
-        "Exact: ": round(conversion(a), ROUND_NUM),
-        "You were off by ": round(abs(ans - correct), ROUND_NUM),
-        "Approximation: ": round(approx(a), ROUND_NUM),
+        "Exact: ": conversion(a),
+        "You were off by ": abs(ans - correct),
+        "Approximation: ": approx(a),
         "Closest integer: ": closest_integer,
     }
-    print_ticket(ticket)
+    print_ticket(ticket, units=f"°{to_short}")
     return QuestionResult(num_wrong, q_time, (f"{orig_short} -> {to_short}", f"{a}"))
 
 
@@ -401,12 +406,12 @@ def pounds_kg(top: int) -> QuestionResult:
         ans = get_float(f"{to.capitalize()}: ")
     q_time: float = time.time() - start
     ticket: dict[str, float] = {
-        "Exact: ": round(conversion(a), ROUND_NUM),
-        "You were off by ": round(abs(ans - correct), ROUND_NUM),
-        "Approximation: ": round(approx(a), ROUND_NUM),
+        "Exact: ": conversion(a),
+        "You were off by ": abs(ans - correct),
+        "Approximation: ": approx(a),
         "Closest integer: ": closest_integer,
     }
-    print_ticket(ticket)
+    print_ticket(ticket, units=to_short)
     return QuestionResult(num_wrong, q_time, (f"{orig_short} -> {to_short}", f"{a}"))
 
 

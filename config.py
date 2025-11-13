@@ -173,7 +173,7 @@ def print_summary(
         for desc, val in stats.items():
             print(
                 f"{Fore.BLUE}{desc:<{l_width}}"
-                f"{Fore.YELLOW}{val:<{num_width}.{ROUNDING_NUM}f}{Fore.BLUE} seconds{Fore.RESET}"
+                f"{Fore.YELLOW}{val:>{num_width}.{ROUNDING_NUM}f}{Fore.BLUE} seconds{Fore.RESET}"
             )
 
 
