@@ -1,0 +1,7 @@
+#question_answer_box Input {
+    width: 3fr;
+}
+
+QuestionNumber Label {
+    width: 10;
+}
