@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class SelectOperations(Vertical):
     def compose(self) -> ComposeResult:
         self.selection_list = SelectionList(
-            *(Selection(op, op, id=op) for op in CONFIG.OPERATIONS)
+            *(Selection(op, op, id=op) for op in CONFIG.QUESTIONDATA)
         )
         yield self.selection_list
 
@@ -27,7 +27,7 @@ class SelectOperations(Vertical):
 class MainMenu(Widget):
     def compose(self) -> ComposeResult:
         self.ops = SelectOperations()
-        self.special_button = Button("Special")
+        self.special_button = Button("Special", id="go_to_specials")
         self.input_numq = Input(
             type="integer",
             placeholder="How many questions?",

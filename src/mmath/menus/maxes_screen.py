@@ -58,7 +58,7 @@ class InputMaxesScreen(Screen):
 
 class MainMenuTestApp(App):
     def compose(self) -> ComposeResult:
-        yield InputMaxes(list(CONFIG.OPERATIONS.keys()))
+        yield InputMaxes(list(CONFIG.QUESTIONDATA.keys()))
 
 
 if __name__ == "__main__":

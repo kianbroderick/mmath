@@ -9,6 +9,7 @@ from mmath.config import CONFIG
 from mmath.menus.mainmenu import MainMenu
 from mmath.menus.maxes_screen import InputMaxesScreen
 from mmath.questions.question_screen import QuestionScreen
+from mmath.special.special_screen import SelectSpecialScreen
 
 
 class MentalMathApp(App):
@@ -36,6 +37,11 @@ class MentalMathApp(App):
         await self.push_screen_wait(
             QuestionScreen(self.operation_maxes, int(self.mainmenu.input_numq.value))
         )
+
+    @on(Button.Pressed)
+    def go_to_specials(self, event: Button.Pressed) -> None:
+        if event.button.id == "go_to_specials":
+            self.push_screen(SelectSpecialScreen())
 
 
 def main() -> None:
