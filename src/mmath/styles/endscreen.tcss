@@ -1,0 +1,55 @@
+EndScreen {
+    align: center middle;
+    DataTable {
+        width: 60%;
+        padding: 2 5;
+        content-align: center middle;
+    }
+    Button {
+        width: 100%
+    }
+}
+
+#question {
+    column-span: 3;
+    height: 1fr;
+    width: 1fr;
+    content-align: center middle;
+    border: tall $secondary;
+}
+
+#summary_data_container {
+    column-span: 3;
+    height: 1fr;
+    width: 100%;
+    content-align: center middle;
+}
+
+#summary_data {
+    width: auto;
+    height: auto;
+}
+
+#yes_repeat {
+    content-align: center middle;
+    text-align: center;
+    background: $success-darken-3;
+    color: $text;
+}
+
+#view_data_button {
+    background: $primary;
+    color: $text;
+}
+
+#dialog {
+    width: 60%;
+    height: 60%;
+    grid-size: 3 3;
+    grid-gutter: 1 2;
+    grid-rows: 1fr 3fr;
+    padding: 0 1;
+    background: $surface;
+    align: center middle;
+    content-align: center middle;
+}

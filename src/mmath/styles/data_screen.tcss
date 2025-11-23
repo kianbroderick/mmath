@@ -1,0 +1,26 @@
+DataScreen {
+    max-width: 100;
+    align: center top;
+    Center {
+        max-width: 100;
+    }
+    VerticalScroll {
+        max-width: 100;
+    }
+    #sorting_buttons {
+        grid-size: 4 1;
+        height: auto;
+        max-width: 100;
+        margin: 5 0 2 0;
+    }
+    .sort_btn {
+        width: 100%;
+        margin: 0 1;
+        background: $panel;
+    }
+    DataTable {
+        width: auto;
+        max-width: 100;
+        margin: 4 0;
+    }
+}

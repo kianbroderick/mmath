@@ -1,0 +1,105 @@
+QuestionScreen {
+    align-horizontal: center;
+    QuestionUI {
+        max-width: 110;
+        border: thick $secondary;
+        align-horizontal: center;
+    }
+
+    QuestionUI AnswerBox {
+        height: auto;
+        layout: grid;
+        width: 100%;
+        max-width: 100;
+        grid-size: 2 1;
+        grid-columns: 3fr 1fr;
+        align-horizontal: center;
+        grid-gutter: 1;
+        margin: 5 0;
+        Input {
+            border: tall $primary;
+        }
+    }
+    Center {
+        max-width: 100;
+    }
+
+    .correct {
+        border: tall $success;
+    }
+
+    .incorrect {
+        border: tall $error;
+    }
+
+    QuestionNumber Digits {
+        width: 14;
+        border: solid $primary;
+        text-align: center;
+        margin: 1 2;
+    }
+
+    QuestionDisplay {
+        margin: 3 5;
+        border: tall $primary;
+        padding: 2 2;
+        width: 50%;
+        max-width: 100;
+        text-align: center;
+    }
+}
+
+TimesTableScreen {
+    align-horizontal: center;
+    QuestionUI {
+        max-width: 110;
+        border: $secondary;
+    }
+    TimesTablesUI {
+        border: thick $secondary;
+        max-width: 110;
+        align-horizontal: center;
+    }
+
+    TimesTablesUI AnswerBox {
+        height: auto;
+        layout: grid;
+        width: 100%;
+        max-width: 100;
+        grid-size: 2 1;
+        grid-columns: 3fr 1fr;
+        align-horizontal: center;
+        grid-gutter: 1;
+        margin: 5 0;
+        Input {
+            border: tall $primary;
+        }
+    }
+    Center {
+        max-width: 100;
+    }
+
+    .correct {
+        border: tall $success;
+    }
+
+    .incorrect {
+        border: tall $error;
+    }
+
+    QuestionNumber Digits {
+        width: 14;
+        border: solid $primary;
+        text-align: center;
+        margin: 1 2;
+    }
+
+    QuestionDisplay {
+        margin: 3 5;
+        border: tall $primary;
+        padding: 2 2;
+        width: 50%;
+        max-width: 100;
+        text-align: center;
+   }
+}

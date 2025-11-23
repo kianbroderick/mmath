@@ -1,0 +1,42 @@
+InputMaxesScreen {
+    InputMaxes {
+        width: auto;
+        max-width: 100;
+        height: auto;
+        grid-gutter: 1;
+        padding: 1;
+        Label {
+            padding: 1 2;
+            align: center top;
+            width: 1fr;
+            height: auto;
+        }
+        Input {
+            width: 3fr;
+            height: auto;
+        }
+    }
+    .input_maxes_class {
+        height: auto;
+        margin: 2;
+    }
+
+
+    #maxes_screen_container {
+        align: center middle;
+        content-align: center middle;
+        padding: 1 2;
+    }
+
+    #horizontal_input_maxes {
+        layout: grid;
+        grid-size: 2 1;
+        grid-gutter: 60;
+        max-width: 100;
+        width: auto;
+        height: auto;
+        Button {
+            width: 1fr;
+        }
+    }
+}

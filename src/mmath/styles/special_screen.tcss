@@ -1,0 +1,16 @@
+SelectSpecialScreen {
+    align: center middle;
+    .special_button {
+        margin: 1 2;
+        padding: 3;
+        background: $panel;
+    }
+    .back_button {
+        margin: 7 2;
+        padding: 0;
+    }
+    #special_grid {
+        max-width: 100;
+        margin: 5 0;
+    }
+}

@@ -2,17 +2,18 @@ import random
 import time
 from dataclasses import dataclass
 
-from textual import on
+from textual import on, work
 from textual.app import ComposeResult
+from textual.containers import Center, Container, Horizontal
 from textual.message import Message
 from textual.screen import Screen
 from textual.validation import Number
 from textual.widget import Widget
-from textual.widgets import Button, Footer, Input
+from textual.widgets import Button, Footer, Input, Label
 
 from mmath.config import CONFIG
-from mmath.questions.operations import AnswerData, QuestionData, times_tables
-from mmath.questions.question_screen import EndScreen
+from mmath.data.data_screen import EndScreen
+from mmath.operations import AnswerData, QuestionData, times_tables
 from mmath.questions.question_widgets import (
     AnswerBox,
     QuestionDisplay,
@@ -29,37 +30,56 @@ class TimesTableConfig:
 
 
 class ConfigureTimesTablesScreen(Screen):
+    CSS_PATH = "../styles/config_times_table_screen.tcss"
+
     def compose(self) -> ComposeResult:
-        yield Input(
-            type="integer",
-            placeholder="Which times table?",
-            validators=[
-                Number(),
-            ],
-            id="times_table",
-        )
-        yield Input(
-            type="integer",
-            placeholder="Up to what number?",
-            validators=[Number()],
-            id="tt_top",
-        )
-        yield Input(
-            type="integer",
-            placeholder="How many questions?",
-            validators=[Number()],
-            id="tt_number_of_questions",
-        )
-        self.start_button = Button("Start", id="start_times_tables")
-        self.back_button = Button("Back", classes="back_button")
-        yield self.back_button
-        yield self.start_button
+        with Container(id="config_tt_main_container"):
+            yield Label("Which times table?")
+            yield Input(
+                type="integer",
+                placeholder="",
+                validators=[
+                    Number(minimum=1),
+                ],
+                validate_on=["changed"],
+                valid_empty=False,
+                id="times_table",
+            )
+            yield Label("Up to what number?")
+            yield Input(
+                type="integer",
+                placeholder="",
+                validators=[
+                    Number(minimum=1),
+                ],
+                validate_on=["changed"],
+                valid_empty=False,
+                id="tt_top",
+            )
+            yield Label("How many questions?")
+            yield Input(
+                type="integer",
+                placeholder="",
+                validators=[
+                    Number(minimum=1),
+                ],
+                validate_on=["changed"],
+                valid_empty=False,
+                id="tt_number_of_questions",
+            )
+            self.start_button = Button(
+                "Start", id="start_times_tables", disabled=True, classes="next_button"
+            )
+            self.back_button = Button("Back", classes="back_button")
+            yield Horizontal(self.back_button, Container(), self.start_button)
 
-    def on_input_changed(self) -> None:
+    def on_input_changed(self, event: Input.Changed) -> None:
         all_inputs = self.query(Input)
-        self.start_button.disabled = not all(i.is_valid for i in all_inputs)
+        self.start_button.disabled = not all(
+            (i.is_valid and bool(i.value)) for i in all_inputs
+        )
 
-    def on_button_pressed(self, event: Button.Pressed) -> None:
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "start_times_tables":
             times_table = int(self.query_one("#times_table", Input).value)
             top = int(self.query_one("#tt_top", Input).value)
@@ -83,7 +103,7 @@ class TimesTablesUI(Widget):
         self.question_display = QuestionDisplay()
         self.answer_box = AnswerBox()
         yield self.question_number
-        yield self.question_display
+        yield Center(self.question_display)
         yield self.answer_box
 
     def on_mount(self) -> None:
@@ -91,11 +111,20 @@ class TimesTablesUI(Widget):
 
     class Finished(Message): ...
 
-    def check_finished(self) -> None:
+    def flash_class(self, widget, class_name: str, duration: float = 0.15) -> None:
+        widget.add_class(class_name)
+        self.set_timer(duration, lambda: widget.remove_class(class_name))
+
+    def check_finished(self) -> bool:
         if self.question_number.current == self.config.number_of_questions:
             self.post_message(self.Finished())
+            return True
+        else:
+            return False
 
     def new_question(self) -> None:
+        if self.check_finished():
+            return
         self.question_number.next()
         self.n_err = 0
         self.q_data = times_tables(self.config.top, self.config.times_table)
@@ -110,6 +139,9 @@ class TimesTablesUI(Widget):
             self.answer_box.answer_box.clear()
             return
         if int(self.answer_box.answer_box.value) == self.q_data.correct:
+            self.flash_class(self.answer_box.answer_box, "correct")
+            self.flash_class(self.question_display, "correct")
+            self.flash_class(self, "correct")
             self.answer_box.answer_box.clear()
             self.time = time.time() - self.time
             qdata = self.q_data
@@ -117,9 +149,12 @@ class TimesTablesUI(Widget):
                 qdata.name, qdata.left, qdata.right, self.time, self.n_err
             )
             self.answer_data[self.question_number.current] = answerdata
-            self.check_finished()
             self.new_question()
         else:
+            self.answer_box.answer_box.clear()
+            self.flash_class(self.answer_box.answer_box, "incorrect")
+            self.flash_class(self.question_display, "incorrect")
+            self.flash_class(self, "incorrect")
             self.n_err += 1
 
 
@@ -130,7 +165,7 @@ class TimesTableScreen(Screen):
         super().__init__()
         self.tt_config = config
 
-    CSS_PATH = "questionui.tcss"
+    CSS_PATH = "../styles/questionui.tcss"
 
     def compose(self) -> ComposeResult:
         self.qui = TimesTablesUI(self.tt_config)

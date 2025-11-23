@@ -3,7 +3,7 @@ from textual.screen import Screen
 from textual.widgets import Footer
 
 from mmath.config import CONFIG
-from mmath.questions.data_screen import EndScreen
+from mmath.data.data_screen import EndScreen
 from mmath.questions.question_widgets import QuestionUI
 
 
@@ -17,7 +17,7 @@ class QuestionScreen(Screen):
         self.question_maxes = question_maxes
         self.number_of_questions = number_of_questions
 
-    CSS_PATH = "questionui.tcss"
+    CSS_PATH = "../styles/questionui.tcss"
 
     def compose(self) -> ComposeResult:
         self.qui = QuestionUI(self.question_maxes, self.number_of_questions)
@@ -34,7 +34,7 @@ class QuestionScreen(Screen):
 
 
 class QuestionScreenTest(App):
-    CSS_PATH = "questionui.tcss"
+    CSS_PATH = "../styles/questionui.tcss"
 
     def compose(self) -> ComposeResult:
         self.qui = QuestionUI({"addition": 3}, 3)

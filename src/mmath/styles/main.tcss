@@ -1,0 +1,43 @@
+#logo {
+    height: auto;
+    width: auto;
+}
+
+#mainmenu {
+    height: auto;
+}
+
+.back_button {
+    background: $warning;
+    color: $text;
+}
+
+#input_numq_row {
+    layout: horizontal;
+}
+
+.next_button {
+    background: $success;
+    color: $text;
+}
+
+#go_to_specials {
+    background: $panel;
+    text-align: center;
+    content-align: center middle;
+    margin: 1;
+}
+
+SelectOperations {
+    height: auto;
+}
+
+#next_button_row {
+    align: right middle;
+    width: 100%;
+    height: auto;
+}
+
+#next_button_to_maxes {
+    align: right middle;
+}

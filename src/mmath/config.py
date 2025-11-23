@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from mmath.questions.operations import (
+from mmath.operations import (
     QuestionData,
     addition,
     multiplication,
