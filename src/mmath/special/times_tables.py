@@ -19,6 +19,7 @@ from mmath.questions.question_widgets import (
     QuestionDisplay,
     QuestionNumber,
     QuestionUI,
+    in_bounds,
 )
 
 
@@ -138,7 +139,7 @@ class TimesTablesUI(Widget):
         if not submission:
             self.answer_box.answer_box.clear()
             return
-        if int(self.answer_box.answer_box.value) == self.q_data.correct:
+        if in_bounds(float(self.answer_box.answer_box.value), self.q_data.correct):
             self.flash_class(self.answer_box.answer_box, "correct")
             self.flash_class(self.question_display, "correct")
             self.flash_class(self, "correct")

@@ -74,6 +74,11 @@ class AnswerBox(Widget):
             self.submit_button.disabled = True
 
 
+def in_bounds(test: float, bounds: tuple[float, float]) -> bool:
+    lower, upper = bounds
+    return test >= lower and test <= upper
+
+
 class QuestionUI(Widget):
     def __init__(self, op_maxes: dict[str, int], number_of_questions: int) -> None:
         super().__init__()
@@ -126,7 +131,7 @@ class QuestionUI(Widget):
         if not submission:
             self.answer_box.answer_box.clear()
             return
-        if int(self.answer_box.answer_box.value) == self.q_data.correct:
+        if in_bounds(float(self.answer_box.answer_box.value), self.q_data.correct):
             self.flash_class(self.answer_box.answer_box, "correct")
             self.flash_class(self.question_display, "correct")
             self.flash_class(self, "correct")

@@ -3,7 +3,10 @@ from typing import TYPE_CHECKING
 from mmath.operations import (
     QuestionData,
     addition,
+    mod,
     multiplication,
+    square,
+    squareroot,
     subtraction,
     times_tables,
 )
@@ -20,6 +23,9 @@ class Config:
             "addition": addition,
             "subtraction": subtraction,
             "multiplication": multiplication,
+            "square": square,
+            "square_root": squareroot,
+            "mod": mod,
         }
         self.SPECIAL = {"times_tables": times_tables}
         self.DEFAULT_BINDINGS: list[BindingType] = [

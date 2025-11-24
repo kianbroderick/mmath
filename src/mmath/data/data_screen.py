@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class DataScreen(Screen):
     CSS_PATH = "../styles/data_screen.tcss"
     BINDINGS = [
-        ("d", "go_back", "Close"),
+        ("d,b", "go_back", "Close"),
         ("q", "sort_by_q", "Sort by question"),
         ("t", "sort_by_time", "Sort by time"),
         ("o", "sort_by_op", "Sort by operation"),
@@ -49,8 +49,8 @@ class DataScreen(Screen):
     def on_mount(self) -> None:
         self.table.add_columns(
             ("question", "question"),
-            ("operation", "operation"),
             ("left", "left"),
+            ("op", "operation"),
             ("right", "right"),
             ("time", "time"),
             ("mistakes", "mistakes"),
@@ -58,8 +58,8 @@ class DataScreen(Screen):
         for question_number, data in self.data.items():
             self.table.add_row(
                 question_number,
-                data.operation,
                 data.left,
+                data.operation,
                 data.right,
                 data.time,
                 data.number_of_errors,

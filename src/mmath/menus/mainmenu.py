@@ -22,7 +22,10 @@ if TYPE_CHECKING:
 class SelectOperations(Vertical):
     def compose(self) -> ComposeResult:
         self.selection_list = SelectionList(
-            *(Selection(op, op, id=op) for op in CONFIG.QUESTIONDATA)
+            *(
+                Selection(op.replace("_", " ").lower(), op, id=op)
+                for op in CONFIG.QUESTIONDATA
+            )
         )
         yield self.selection_list
 
