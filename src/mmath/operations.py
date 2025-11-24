@@ -72,7 +72,7 @@ def squareroot(top: int) -> QuestionData:
         min(true_root - tol, best_answer - tol),
         max(true_root + tol, best_answer + tol),
     )
-    display = f"sqrt( {left} ){correct}"
+    display = f"sqrt( {left} )"
     return QuestionData(name, left, right, correct, display)
 
 

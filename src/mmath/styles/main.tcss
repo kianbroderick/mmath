@@ -1,3 +1,4 @@
+
 #logo {
     height: auto;
     width: auto;
@@ -29,6 +30,7 @@
 }
 
 SelectOperations {
+    margin: 0;
     height: auto;
 }
 
