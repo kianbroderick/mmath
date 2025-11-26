@@ -1,13 +1,14 @@
 ConfigureTimesTablesScreen {
     #config_tt_main_container {
         max-width: 100;
+        content-align: center middle;
+        align: center middle;
         layout: grid;
         grid-size: 2 5;
         grid-columns: 1fr 2fr;
         grid-gutter: 1;
         height: 30;
         width: auto;
-        max-width: 100;
         margin: 1;
     }
     align: center middle;
@@ -19,11 +20,12 @@ ConfigureTimesTablesScreen {
     }
 
     Input {
-        max-width: 75;
+        max-width: 1fr;
         margin: 0 3;
     }
 
     Horizontal {
+        max-width: 100;
         height: auto;
         column-span: 2;
         layout: grid;

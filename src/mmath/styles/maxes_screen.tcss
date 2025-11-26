@@ -8,7 +8,7 @@ InputMaxesScreen {
         Label {
             padding: 1 2;
             align: center top;
-            width: 1fr;
+            width: 2fr;
             height: auto;
         }
         Input {

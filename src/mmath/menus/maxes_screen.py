@@ -13,6 +13,7 @@ from textual.widget import Widget
 from textual.widgets import Button, Footer, Input, Label
 
 from mmath.config import CONFIG
+from mmath.operations import display_text
 
 
 class InputMaxes(Widget):
@@ -24,7 +25,7 @@ class InputMaxes(Widget):
     def compose(self) -> ComposeResult:
         for operation in self.selected_operations:
             with Horizontal(classes="input_maxes_class"):
-                yield Label(operation.capitalize())
+                yield Label(display_text(operation))
                 yield Input(
                     type="integer",
                     placeholder="Enter the maximum desired value",
@@ -65,7 +66,9 @@ class InputMaxesScreen(Screen):
 
     def on_input_changed(self) -> None:
         all_inputs = self.query(Input)
-        self.submit_button.disabled = not all(i.value for i in all_inputs)
+        self.submit_button.disabled = not all(
+            i.value and i.is_valid for i in all_inputs
+        )
 
     def on_input_submitted(self) -> None:
         if self.submit_button.disabled:

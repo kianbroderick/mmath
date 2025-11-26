@@ -6,6 +6,9 @@ from textual.screen import Screen
 from textual.widgets import Button, Footer
 
 from mmath.config import CONFIG
+from mmath.operations import default
+from mmath.questions.question_screen import QuestionScreen
+from mmath.special.num_questions_screen import NumberOfQuestionsScreen
 from mmath.special.times_tables import ConfigureTimesTablesScreen, TimesTableScreen
 
 if TYPE_CHECKING:
@@ -38,6 +41,9 @@ class SelectSpecialScreen(Screen):
     async def config_times_tables(self, event: Button.Pressed) -> None:
         if event.button.id == "times_tables_button":
             await self.app.push_screen_wait(ConfigureTimesTablesScreen())
+        if event.button.id == "default_button":
+            num_q = await self.app.push_screen_wait(NumberOfQuestionsScreen())
+            self.app.push_screen(QuestionScreen(default, num_q))
         elif "back_button" in event.button.classes:
             self.app.pop_screen()
 

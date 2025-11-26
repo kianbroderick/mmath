@@ -1,0 +1,30 @@
+NumberOfQuestionsScreen {
+    align: center middle;
+    #num_questions_container {
+        background: $panel;
+        layout: grid;
+        padding: 3 10;
+        grid-size: 3;
+        align: center middle;
+        align-horizontal: center;
+        height: auto;
+        width: 70%;
+        height: 60%;
+        Input {
+            column-span: 2;
+        }
+        Horizontal {
+            column-span: 3;
+            margin: 1 5;
+            height: auto;
+            content-align: center middle;
+            & > * {
+                height: auto;
+            }
+        }
+        Label {
+            padding: 1 2;
+            width: 100%;
+        }
+    }
+}

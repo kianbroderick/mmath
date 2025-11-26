@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from mmath.operations import QuestionData
 
 from mmath.config import CONFIG
-from mmath.operations import AnswerData
+from mmath.operations import AnswerData, QuestionInfo
 
 
 class QuestionNumber(Widget):
@@ -85,6 +85,7 @@ class QuestionUI(Widget):
         self.op_maxes = op_maxes
         self.number_of_questions = number_of_questions
         self.answer_data: dict[int, AnswerData] = {}
+        self.add_class("question-ui")
 
     def compose(self) -> ComposeResult:
         self.question_number = QuestionNumber()
@@ -97,10 +98,14 @@ class QuestionUI(Widget):
     def on_mount(self) -> None:
         self.new_question()
 
-    def new_question_data(self) -> QuestionData:
+    def new_question_data(self) -> None:
         operation = random.choice(list(self.op_maxes.keys()))
         top = self.op_maxes[operation]
-        return CONFIG.QUESTIONDATA[operation](top)
+        cls = CONFIG.QUESTIONDATA[operation]
+        self.question = cls()
+        self.question.new(top)
+        self.answer_box.answer_box.restrict = self.question.input_restrictions
+        self.answer_box.answer_box.type = self.question.textual_input_type
 
     class Finished(Message): ...
 
@@ -116,11 +121,13 @@ class QuestionUI(Widget):
             return
         self.question_number.next()
         self.n_err = 0
-        self.q_data = self.new_question_data()
-        self.question_display.update(self.q_data.display)
+        self.new_question_data()
+        self.question_display.update(self.question.display)
         self.time = time.time()
 
-    def flash_class(self, widget, class_name: str, duration: float = 0.15) -> None:
+    def flash_class(
+        self, widget: Widget, class_name: str, duration: float = 0.15
+    ) -> None:
         widget.add_class(class_name)
         self.set_timer(duration, lambda: widget.remove_class(class_name))
 
@@ -131,15 +138,16 @@ class QuestionUI(Widget):
         if not submission:
             self.answer_box.answer_box.clear()
             return
-        if in_bounds(float(self.answer_box.answer_box.value), self.q_data.correct):
+        if self.question.verify_correct(submission):
             self.flash_class(self.answer_box.answer_box, "correct")
             self.flash_class(self.question_display, "correct")
+            self.flash_class(self.question_number, "correct")
             self.flash_class(self, "correct")
             self.answer_box.answer_box.clear()
             self.time = time.time() - self.time
-            qdata = self.q_data
+            qdata = self.question
             answerdata = AnswerData(
-                qdata.name, qdata.left, qdata.right, self.time, self.n_err
+                qdata.symbol, qdata.left, qdata.right, self.time, self.n_err
             )
             self.answer_data[self.question_number.current] = answerdata
             self.new_question()
@@ -147,5 +155,6 @@ class QuestionUI(Widget):
             self.answer_box.answer_box.clear()
             self.flash_class(self.answer_box.answer_box, "incorrect")
             self.flash_class(self.question_display, "incorrect")
+            self.flash_class(self.question_number, "incorrect")
             self.flash_class(self, "incorrect")
             self.n_err += 1

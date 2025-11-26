@@ -1,0 +1,21 @@
+HelpScreen {
+    Content {
+        align-horizontal: center;
+        & > * {
+            max-width: 100;
+        }
+        margin: 0 1;
+        overflow-y: auto;
+        height: 1fr;
+        scrollbar-gutter: stable;
+        Collapsible {
+            padding-right: 0;
+            &.-collapsed { padding-bottom: 1; }
+        }
+        Markdown {
+            margin-right: 1;
+            padding-right: 1;
+            background: transparent;
+        }
+    }
+}

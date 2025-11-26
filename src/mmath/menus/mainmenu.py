@@ -13,6 +13,8 @@ from textual.widgets import (
 from textual.widgets.selection_list import Selection
 
 from mmath.config import CONFIG
+from mmath.help_screen import HelpScreen
+from mmath.operations import display_text
 from mmath.special.special_screen import SelectSpecialScreen
 
 if TYPE_CHECKING:
@@ -40,6 +42,7 @@ class SelectOperations(Vertical):
 class MainMenu(Widget):
     BINDINGS = [
         ("s", "special_screen", "Special"),
+        ("h", "goto_help", "Help"),
     ]
 
     DEFAULT_CSS = """
@@ -92,3 +95,6 @@ class MainMenu(Widget):
 
     def action_special_screen(self) -> None:
         self.app.push_screen(SelectSpecialScreen())
+
+    def action_goto_help(self) -> None:
+        self.app.push_screen(HelpScreen())

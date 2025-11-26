@@ -32,6 +32,7 @@ class TimesTableConfig:
 
 class ConfigureTimesTablesScreen(Screen):
     CSS_PATH = "../styles/config_times_table_screen.tcss"
+    BINDINGS = [("b", "go_back", "Back")]
 
     def compose(self) -> ComposeResult:
         with Container(id="config_tt_main_container"):
@@ -73,6 +74,7 @@ class ConfigureTimesTablesScreen(Screen):
             )
             self.back_button = Button("Back", classes="back_button")
             yield Horizontal(self.back_button, Container(), self.start_button)
+        yield Footer()
 
     def on_input_changed(self, event: Input.Changed) -> None:
         all_inputs = self.query(Input)
@@ -80,17 +82,27 @@ class ConfigureTimesTablesScreen(Screen):
             (i.is_valid and bool(i.value)) for i in all_inputs
         )
 
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        if not self.start_button.disabled:
+            self.action_start_quiz()
+
     async def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "start_times_tables":
-            times_table = int(self.query_one("#times_table", Input).value)
-            top = int(self.query_one("#tt_top", Input).value)
-            number_of_questions = int(
-                self.query_one("#tt_number_of_questions", Input).value
-            )
-            tt_config = TimesTableConfig(times_table, top, number_of_questions)
-            self.app.push_screen(TimesTableScreen(tt_config))
+            self.action_start_quiz()
         elif "back_button" in event.button.classes:
             self.dismiss()
+
+    def action_go_back(self) -> None:
+        self.dismiss()
+
+    def action_start_quiz(self) -> None:
+        times_table = int(self.query_one("#times_table", Input).value)
+        top = int(self.query_one("#tt_top", Input).value)
+        number_of_questions = int(
+            self.query_one("#tt_number_of_questions", Input).value
+        )
+        tt_config = TimesTableConfig(times_table, top, number_of_questions)
+        self.app.push_screen(TimesTableScreen(tt_config))
 
 
 class TimesTablesUI(Widget):
@@ -98,6 +110,7 @@ class TimesTablesUI(Widget):
         super().__init__()
         self.config = config
         self.answer_data: dict[int, AnswerData] = {}
+        self.add_class("question-ui")
 
     def compose(self) -> ComposeResult:
         self.question_number = QuestionNumber()
@@ -142,6 +155,7 @@ class TimesTablesUI(Widget):
         if in_bounds(float(self.answer_box.answer_box.value), self.q_data.correct):
             self.flash_class(self.answer_box.answer_box, "correct")
             self.flash_class(self.question_display, "correct")
+            self.flash_class(self.question_number, "correct")
             self.flash_class(self, "correct")
             self.answer_box.answer_box.clear()
             self.time = time.time() - self.time
@@ -155,6 +169,7 @@ class TimesTablesUI(Widget):
             self.answer_box.answer_box.clear()
             self.flash_class(self.answer_box.answer_box, "incorrect")
             self.flash_class(self.question_display, "incorrect")
+            self.flash_class(self.question_number, "correct")
             self.flash_class(self, "incorrect")
             self.n_err += 1
 

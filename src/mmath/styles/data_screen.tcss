@@ -2,10 +2,11 @@ DataScreen {
     max-width: 100;
     align: center top;
     Center {
-        max-width: 100;
+        max-width: 100
     }
     VerticalScroll {
-        max-width: 100;
+        content-align: center middle;
+        align: center middle;
     }
     #sorting_buttons {
         grid-size: 4 1;

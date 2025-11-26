@@ -25,25 +25,47 @@ QuestionScreen {
     }
 
     .correct {
-        border: tall $success;
+        Input {
+            border: tall $success;
+        }
+        QuestionDisplay {
+            border: tall $success;
+        }
+        QuestionNumber Digits {
+            border: solid $success;
+        }
+    }
+    .correct.question-ui {
+        border: thick $success;
     }
 
     .incorrect {
-        border: tall $error;
+        Input {
+            border: tall $error;
+        }
+        QuestionDisplay {
+            border: tall $error;
+        }
+        QuestionNumber Digits {
+            border: solid $error;
+        }
+    }
+    .incorrect.question-ui {
+        border: thick $error;
     }
 
     QuestionNumber Digits {
         width: 14;
         border: solid $primary;
         text-align: center;
-        margin: 1 2;
+        margin: 2 2;
     }
 
     QuestionDisplay {
         margin: 3 5;
         border: tall $primary;
-        padding: 2 2;
-        width: 50%;
+        padding: 2 0;
+        width: 70%;
         max-width: 100;
         text-align: center;
     }
@@ -80,11 +102,34 @@ TimesTableScreen {
     }
 
     .correct {
-        border: tall $success;
+        Input {
+            border: tall $success;
+        }
+        QuestionDisplay {
+            border: tall $success;
+        }
+        QuestionNumber Digits {
+            border: solid $success;
+        }
+    }
+    .correct.question-ui {
+        border: thick $success;
     }
 
+
     .incorrect {
-        border: tall $error;
+       Input {
+            border: tall $error;
+        }
+        QuestionDisplay {
+            border: tall $error;
+        }
+        QuestionNumber Digits {
+            border: solid $error;
+        }
+    }
+    .incorrect.question-ui {
+        border: thick $error;
     }
 
     QuestionNumber Digits {

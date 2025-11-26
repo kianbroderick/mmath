@@ -1,6 +1,7 @@
 from statistics import mean, median, stdev
 from typing import TYPE_CHECKING
 
+from rich.text import Text
 from textual import on
 from textual.binding import BindingType
 from textual.containers import Center, CenterMiddle, Container, Grid, VerticalScroll
@@ -56,14 +57,16 @@ class DataScreen(Screen):
             ("mistakes", "mistakes"),
         )
         for question_number, data in self.data.items():
-            self.table.add_row(
+            row = [
                 question_number,
                 data.left,
                 data.operation,
                 data.right,
-                data.time,
+                round(data.time, 2),
                 data.number_of_errors,
-            )
+            ]
+            styled_row = [Text(str(cell), justify="right") for cell in row]
+            self.table.add_row(*styled_row)
 
     @on(Button.Pressed)
     def close_data_screen(self, event: Button.Pressed) -> None:
@@ -151,9 +154,9 @@ class EndScreen(ModalScreen):
         self.summary_table.add_columns(
             "average", "std dev", "median", "minimum", "maximum", "range"
         )
-        self.summary_table.add_row(
-            average, std_dev, data_median, minimum, maximum, data_range
-        )
+        row = [average, std_dev, data_median, minimum, maximum, data_range]
+        styled_row = [Text(f"{cell:.2f}", justify="right") for cell in row]
+        self.summary_table.add_row(*styled_row)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         button_id = event.button.id
