@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from textual import on
+from textual import events, on
 from textual.containers import Container, Horizontal
 from textual.screen import ModalScreen
 from textual.widgets import Button, Input, Label

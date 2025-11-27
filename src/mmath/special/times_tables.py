@@ -6,7 +6,7 @@ from textual import on, work
 from textual.app import ComposeResult
 from textual.containers import Center, Container, Horizontal
 from textual.message import Message
-from textual.screen import Screen
+from textual.screen import ModalScreen, Screen
 from textual.validation import Number
 from textual.widget import Widget
 from textual.widgets import Button, Footer, Input, Label
@@ -30,7 +30,7 @@ class TimesTableConfig:
     number_of_questions: int
 
 
-class ConfigureTimesTablesScreen(Screen):
+class ConfigureTimesTablesScreen(ModalScreen):
     CSS_PATH = "../styles/config_times_table_screen.tcss"
     BINDINGS = [("b", "go_back", "Back")]
 

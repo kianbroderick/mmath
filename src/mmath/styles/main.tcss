@@ -15,6 +15,7 @@
 
 #input_numq_row {
     layout: horizontal;
+    margin: 1;
 }
 
 .next_button {

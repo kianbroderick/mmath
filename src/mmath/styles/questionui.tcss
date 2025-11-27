@@ -15,7 +15,6 @@ QuestionScreen {
         grid-columns: 3fr 1fr;
         align-horizontal: center;
         grid-gutter: 1;
-        margin: 5 0;
         Input {
             border: tall $primary;
         }
@@ -58,11 +57,11 @@ QuestionScreen {
         width: 14;
         border: solid $primary;
         text-align: center;
-        margin: 2 2;
+        margin: 0 1;
     }
 
     QuestionDisplay {
-        margin: 3 5;
+        margin: 2;
         border: tall $primary;
         padding: 2 0;
         width: 70%;
@@ -92,7 +91,7 @@ TimesTableScreen {
         grid-columns: 3fr 1fr;
         align-horizontal: center;
         grid-gutter: 1;
-        margin: 5 0;
+        margin: 1;
         Input {
             border: tall $primary;
         }
@@ -140,9 +139,9 @@ TimesTableScreen {
     }
 
     QuestionDisplay {
-        margin: 3 5;
+        margin: 1;
         border: tall $primary;
-        padding: 2 2;
+        padding: 2 0;
         width: 50%;
         max-width: 100;
         text-align: center;

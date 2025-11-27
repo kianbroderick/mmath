@@ -2,11 +2,17 @@ from typing import TYPE_CHECKING
 
 from mmath.operations import (
     Addition,
+    CelsiusToFahrenheit,
     ComplexMultiplication,
+    FahrenheitToCelsius,
     FractionAddition,
     FractionMultiplication,
+    KilogramsToPounds,
+    KilometersToMiles,
+    MilesToKilometers,
     Mod,
     Multiplication,
+    PoundsToKilograms,
     QuestionInfo,
     Square,
     SquareRoot,
@@ -32,6 +38,12 @@ class Config:
             "complex_multiplication": ComplexMultiplication,
             "fraction_addition": FractionAddition,
             "fraction_multiplication": FractionMultiplication,
+            "fahrenheit_to_celsius": FahrenheitToCelsius,
+            "celsius_to_fahrenheit": CelsiusToFahrenheit,
+            "kilometers_to_miles": KilometersToMiles,
+            "miles_to_kilometers": MilesToKilometers,
+            "pounds_to_kilograms": PoundsToKilograms,
+            "kilograms_to_pounds": KilogramsToPounds,
         }
         self.SPECIAL = {
             "times_tables": times_tables,

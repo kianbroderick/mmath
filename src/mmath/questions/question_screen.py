@@ -11,11 +11,15 @@ class QuestionScreen(Screen):
     BINDINGS = CONFIG.DEFAULT_BINDINGS
 
     def __init__(
-        self, question_maxes: dict[str, int], number_of_questions: int
+        self,
+        question_maxes: dict[str, int],
+        number_of_questions: int,
+        timer: str | None,
     ) -> None:
         super().__init__()
         self.question_maxes = question_maxes
         self.number_of_questions = number_of_questions
+        self.timer = timer
 
     CSS_PATH = "../styles/questionui.tcss"
 

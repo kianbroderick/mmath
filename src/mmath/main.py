@@ -65,14 +65,14 @@ class MentalMathApp(App):
 
     async def configure_maxes(self) -> None:
         screen = InputMaxesScreen(self.mainmenu.ops.selection_list.selected)
-        self.operation_maxes = await self.push_screen_wait(screen)
+        self.operation_maxes, self.timer = await self.push_screen_wait(screen)
 
     async def start_quiz(self) -> None:
         """Pushes the QuestionScreen with the operation_maxes and numq"""
         number_of_questions = int(self.mainmenu.input_numq.value)
         self.clear_screen()
         await self.push_screen_wait(
-            QuestionScreen(self.operation_maxes, number_of_questions)
+            QuestionScreen(self.operation_maxes, number_of_questions, self.timer)
         )
 
     def clear_screen(self) -> None:

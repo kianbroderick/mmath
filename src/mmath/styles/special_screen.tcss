@@ -2,17 +2,16 @@ SelectSpecialScreen {
     align: center middle;
     .special_button {
         margin: 1 1;
-        padding: 3;
+        padding: 1;
         background: $secondary;
         width: 100%;
     }
     .back_button {
-        margin: 7 2;
+        margin: 1;
         padding: 0;
     }
     #special_grid {
         grid-size: 3 3;
         max-width: 100;
-        margin: 3 0;
     }
 }

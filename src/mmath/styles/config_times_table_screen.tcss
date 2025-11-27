@@ -1,35 +1,34 @@
 ConfigureTimesTablesScreen {
     #config_tt_main_container {
-        max-width: 100;
+        padding: 3;
+        background: $panel;
+        width: 90%;
+        height: 90%;
+        max-width: 110;
+        max-height: 30;
         content-align: center middle;
         align: center middle;
         layout: grid;
-        grid-size: 2 5;
+        grid-size: 3;
         grid-columns: 1fr 2fr;
-        grid-gutter: 1;
-        height: 30;
         width: auto;
-        margin: 1;
     }
     align: center middle;
     Label {
-        max-width: 1fr;
-        margin: 0 4;
-        padding: 1 1;
         width: 100%;
+        height: auto;
+        align: center middle;
+        padding: 1;
     }
 
     Input {
-        max-width: 1fr;
-        margin: 0 3;
+        column-span: 2;
     }
 
     Horizontal {
-        max-width: 100;
         height: auto;
-        column-span: 2;
-        layout: grid;
-        grid-size: 3 1;
+        column-span: 3;
         align-horizontal: center;
+        content-align: center middle;
     }
 }
