@@ -80,10 +80,16 @@ def in_bounds(test: float, bounds: tuple[float, float]) -> bool:
 
 
 class QuestionUI(Widget):
-    def __init__(self, op_maxes: dict[str, int], number_of_questions: int) -> None:
+    timer = reactive(0.0)
+    start_time = reactive(time.monotonic)
+
+    def __init__(
+        self, op_maxes: dict[str, int], number_of_questions: int, timer: str | None
+    ) -> None:
         super().__init__()
         self.op_maxes = op_maxes
         self.number_of_questions = number_of_questions
+        self.question_timer = float(timer) if timer else None
         self.answer_data: dict[int, AnswerData] = {}
         self.add_class("question-ui")
 
@@ -97,6 +103,21 @@ class QuestionUI(Widget):
 
     def on_mount(self) -> None:
         self.new_question()
+        self.update_timer = self.set_interval(1 / 60, self.update_time)
+
+    def update_time(self) -> None:
+        """Method to update time to current."""
+        self.timer = time.monotonic() - self.start_time
+
+    def reset_timer(self) -> None:
+        """Method to update time to current."""
+        self.timer = 0.0
+        self.start_time = time.monotonic()
+
+    def watch_timer(self, time: float) -> None:
+        """If the user set a timer, move to the next question when time is up."""
+        if self.question_timer and time > self.question_timer:
+            self.out_of_time()
 
     def new_question_data(self) -> None:
         operation = random.choice(list(self.op_maxes.keys()))
@@ -123,7 +144,7 @@ class QuestionUI(Widget):
         self.n_err = 0
         self.new_question_data()
         self.question_display.update(self.question.display)
-        self.time = time.time()
+        self.reset_timer()
 
     def flash_class(
         self, widget: Widget, class_name: str, duration: float = 0.15
@@ -144,10 +165,9 @@ class QuestionUI(Widget):
             self.flash_class(self.question_number, "correct")
             self.flash_class(self, "correct")
             self.answer_box.answer_box.clear()
-            self.time = time.time() - self.time
             qdata = self.question
             answerdata = AnswerData(
-                qdata.symbol, qdata.left, qdata.right, self.time, self.n_err
+                qdata.symbol, qdata.left, qdata.right, self.timer, self.n_err
             )
             self.answer_data[self.question_number.current] = answerdata
             self.new_question()
@@ -158,3 +178,18 @@ class QuestionUI(Widget):
             self.flash_class(self.question_number, "incorrect")
             self.flash_class(self, "incorrect")
             self.n_err += 1
+
+    def out_of_time(self) -> None:
+        if self.check_finished():
+            return
+        self.answer_box.answer_box.clear()
+        self.flash_class(self.answer_box.answer_box, "incorrect")
+        self.flash_class(self.question_display, "incorrect")
+        self.flash_class(self.question_number, "incorrect")
+        self.flash_class(self, "incorrect")
+        qdata = self.question
+        answerdata = AnswerData(
+            qdata.symbol, qdata.left, qdata.right, self.timer, "time"
+        )
+        self.answer_data[self.question_number.current] = answerdata
+        self.new_question()

@@ -18,7 +18,7 @@ from mmath.config import CONFIG
 from mmath.operations import display_text
 
 
-class InputMaxes(Vertical):
+class InputMaxes(Vertical, can_focus=False):
     def __init__(self, selected_operations: list[str]) -> None:
         self.selected_operations = selected_operations
         self.operation_maxes: dict[str, int] = {}

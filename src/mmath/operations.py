@@ -100,7 +100,7 @@ class AnswerData:
     left: float
     right: float | None
     time: float
-    number_of_errors: int
+    number_of_errors: int | str
 
 
 def times_tables(top: int, num: int) -> QuestionData:

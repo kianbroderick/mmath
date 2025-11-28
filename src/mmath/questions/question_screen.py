@@ -24,7 +24,7 @@ class QuestionScreen(Screen):
     CSS_PATH = "../styles/questionui.tcss"
 
     def compose(self) -> ComposeResult:
-        self.qui = QuestionUI(self.question_maxes, self.number_of_questions)
+        self.qui = QuestionUI(self.question_maxes, self.number_of_questions, self.timer)
         yield self.qui
         yield Footer()
 

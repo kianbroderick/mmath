@@ -1,21 +1,23 @@
 InputMaxesScreen {
     #timer_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 3fr;
         max-width: 50%;
         Label {
             padding: 1;
         }
     }
     InputMaxes {
-        border: cyan;
         width: auto;
         max-width: 50%;
         height: auto;
-        grid-gutter: 1;
         padding: 1;
         Label {
-            padding: 1 2;
+            padding: 1;
             align: center top;
             width: 2fr;
+            height: auto;
         }
         Input {
             width: 3fr;
@@ -36,6 +38,9 @@ InputMaxesScreen {
         padding: 1 2;
         layout: grid;
         grid-size: 1 3;
+        & > * {
+            padding: 1;
+        }
     }
 
     #horizontal_input_maxes {
