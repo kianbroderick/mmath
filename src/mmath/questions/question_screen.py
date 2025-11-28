@@ -33,6 +33,7 @@ class QuestionScreen(Screen):
         if selected == "yes_repeat":
             self.qui.question_number.current = 0
             self.qui.new_question()
+            self.qui.update_timer.resume()
         else:
             self.app.pop_screen()
 

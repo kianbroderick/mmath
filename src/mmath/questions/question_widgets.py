@@ -133,6 +133,7 @@ class QuestionUI(Widget):
     def check_finished(self) -> bool:
         if self.question_number.current == self.number_of_questions:
             self.post_message(self.Finished())
+            self.update_timer.pause()
             return True
         else:
             return False
@@ -182,14 +183,15 @@ class QuestionUI(Widget):
     def out_of_time(self) -> None:
         if self.check_finished():
             return
-        self.answer_box.answer_box.clear()
-        self.flash_class(self.answer_box.answer_box, "incorrect")
-        self.flash_class(self.question_display, "incorrect")
-        self.flash_class(self.question_number, "incorrect")
-        self.flash_class(self, "incorrect")
-        qdata = self.question
-        answerdata = AnswerData(
-            qdata.symbol, qdata.left, qdata.right, self.timer, "time"
-        )
-        self.answer_data[self.question_number.current] = answerdata
-        self.new_question()
+        else:
+            self.answer_box.answer_box.clear()
+            self.flash_class(self.answer_box.answer_box, "incorrect")
+            self.flash_class(self.question_display, "incorrect")
+            self.flash_class(self.question_number, "incorrect")
+            self.flash_class(self, "incorrect")
+            qdata = self.question
+            answerdata = AnswerData(
+                qdata.symbol, qdata.left, qdata.right, self.timer, "time"
+            )
+            self.answer_data[self.question_number.current] = answerdata
+            self.new_question()
