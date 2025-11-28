@@ -8,6 +8,15 @@ InputMaxesScreen {
             padding: 1;
         }
     }
+    #vanish_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 3fr;
+        max-width: 50%;
+        Label {
+            padding: 1;
+        }
+    }
     InputMaxes {
         width: auto;
         max-width: 50%;
@@ -37,7 +46,7 @@ InputMaxesScreen {
         align-horizontal: center;
         padding: 1 2;
         layout: grid;
-        grid-size: 1 3;
+        grid-size: 1;
         & > * {
             padding: 1;
         }

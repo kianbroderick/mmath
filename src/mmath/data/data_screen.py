@@ -1,6 +1,7 @@
 from statistics import mean, median, stdev
 from typing import TYPE_CHECKING
 
+from rich.console import JustifyMethod
 from rich.text import Text
 from textual import on
 from textual.binding import BindingType
@@ -65,8 +66,8 @@ class DataScreen(Screen):
                 round(data.time, 2),
                 data.number_of_errors,
             ]
-            styled_row = [Text(str(cell), justify="right") for cell in row]
-            self.table.add_row(*styled_row)
+            # styled_row = [Text(str(cell), justify="right") for cell in row]
+            self.table.add_row(*row)
 
     @on(Button.Pressed)
     def close_data_screen(self, event: Button.Pressed) -> None:

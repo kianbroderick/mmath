@@ -83,18 +83,22 @@ def in_bounds(test: float, bounds: tuple[float, float]) -> bool:
 class QuestionUI(Widget):
     timer = reactive(0.0)
     start_time = reactive(time.monotonic)
+    time_at_last_err = reactive(time.monotonic)
+    time_since_last_err = reactive(0.0)
 
     def __init__(
         self,
         op_maxes: dict[str, int],
         number_of_questions: int,
         timer: str | None,
+        vanish: float | None = None,
         special: int | None = None,
     ) -> None:
         super().__init__()
         self.op_maxes = op_maxes
         self.number_of_questions = number_of_questions
         self.question_timer = float(timer) if timer else None
+        self.vanish = float(vanish) if vanish else None
         self.answer_data: dict[int, AnswerData] = {}
         self.special = special
         self.add_class("question-ui")
@@ -122,11 +126,14 @@ class QuestionUI(Widget):
     def update_time(self) -> None:
         """Method to update time to current."""
         self.timer = time.monotonic() - self.start_time
+        self.time_since_last_err = time.monotonic() - self.time_at_last_err
 
     def reset_timer(self) -> None:
         """Method to update time to current."""
         self.timer = 0.0
         self.start_time = time.monotonic()
+        self.time_since_last_err = 0.0
+        self.time_at_last_err = time.monotonic()
 
     def watch_timer(self, time: float) -> None:
         """If the user set a timer, move to the next question when time is up."""
@@ -134,6 +141,7 @@ class QuestionUI(Widget):
         bar.update(progress=time)
         if self.question_timer:
             if time < 0.75 * self.question_timer:
+                bar.remove_class("ending")
                 bar.add_class("normal")
             elif time < self.question_timer:
                 bar.remove_class("normal")
@@ -141,6 +149,11 @@ class QuestionUI(Widget):
             elif time > self.question_timer:
                 bar.remove_class(*["normal", "ending"])
                 self.out_of_time()
+        if self.vanish:
+            if self.time_since_last_err > self.vanish:
+                self.question_display.update("")
+            else:
+                self.question_display.update(self.question.display)
 
     def new_question_data(self) -> None:
         operation = random.choice(list(self.op_maxes.keys()))
@@ -197,6 +210,7 @@ class QuestionUI(Widget):
             self.new_question()
         else:
             self.answer_box.answer_box.clear()
+            self.time_at_last_err = time.monotonic()
             self.flash_class(self.answer_box.answer_box, "incorrect")
             self.flash_class(self.question_display, "incorrect")
             self.flash_class(self.question_number, "incorrect")

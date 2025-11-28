@@ -68,13 +68,27 @@ class InputMaxesScreen(Screen):
             validate_on=("changed",),
         )
         self.timer_input.visible = False
+        self.vanish_input = Input(
+            type="number",
+            id="vanish_input",
+            placeholder="Enter a number",
+            validators=[Number(minimum=0.0001)],
+            validate_on=("changed",),
+        )
+        self.vanish_input.visible = False
         with VerticalScroll(id="maxes_screen_container"):
             yield InputMaxes(self.selected_operations)
             yield Horizontal(
                 Label("Timer"),
-                Switch(animate=False),
+                Switch(animate=False, id="timer_switch"),
                 self.timer_input,
                 id="timer_container",
+            )
+            yield Horizontal(
+                Label("Vanish"),
+                Switch(animate=False, id="vanish_switch"),
+                self.vanish_input,
+                id="vanish_container",
             )
             yield Horizontal(
                 self.back_button,
@@ -87,25 +101,42 @@ class InputMaxesScreen(Screen):
     def on_input_changed(self) -> None:
         self.check_ready()
         self.timer = self.timer_input.value
+        self.vanish = self.vanish_input.value
 
     def check_ready(self) -> None:
         all_inputs = self.query(Input)
-        switch = self.query_one(Switch)
-        if switch.value:
+        timer_switch = self.query_one("#timer_switch", Switch)
+        vanish_switch = self.query_one("#vanish_switch", Switch)
+        if timer_switch.value and vanish_switch.value:
+            self.submit_button.disabled = not all(
+                i.value and i.is_valid for i in all_inputs
+            )
+        elif timer_switch.value:
+            self.submit_button.disabled = not all(
+                i.value and i.is_valid for i in all_inputs if i.id != "vanish_input"
+            )
+        elif vanish_switch.value:
+            self.submit_button.disabled = not all(
+                i.value and i.is_valid for i in all_inputs if i.id != "timer_input"
+            )
+        elif timer_switch.value and vanish_switch.value:
             self.submit_button.disabled = not all(
                 i.value and i.is_valid for i in all_inputs
             )
         else:
             self.submit_button.disabled = not all(
-                i.value and i.is_valid for i in all_inputs if i.id != "timer_input"
+                i.value and i.is_valid
+                for i in all_inputs
+                if i.id not in ["timer_input", "vanish_input"]
             )
 
-    def on_switch_changed(self) -> None:
-        switch = self.query_one(Switch)
-        if switch.value:
-            self.timer_input.visible = True
-        else:
-            self.timer_input.visible = False
+    def on_switch_changed(self, event: Switch.Changed) -> None:
+        if event.switch.id == "timer_switch":
+            self.timer_input.visible = event.switch.value
+            self.timer_input.clear()
+        elif event.switch.id == "vanish_switch":
+            self.vanish_input.visible = event.switch.value
+            self.vanish_input.clear()
         self.check_ready()
 
     def on_input_submitted(self) -> None:
@@ -128,7 +159,7 @@ class InputMaxesScreen(Screen):
             input_value = self.query_one(f"#{operation}", Input)
             value = input_value.value
             self.input_maxes.operation_maxes[operation] = int(value)
-        self.dismiss((self.input_maxes.operation_maxes, self.timer))
+        self.dismiss((self.input_maxes.operation_maxes, self.timer, self.vanish))
 
 
 class MainMenuTestApp(App):
