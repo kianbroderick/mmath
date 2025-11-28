@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from math import ceil, floor, gcd, sqrt
 from sys import displayhook
-from typing import Protocol
+from typing import Any, Optional, Protocol
 
 
 def in_bounds(test: float, bounds: tuple[float, float]) -> bool:
@@ -65,12 +65,13 @@ class QuestionInfo(ABC):
     textual_input_type: str | None = None
     input_restrictions: str | None = None
 
-    def __init__(self) -> None:
+    def __init__(self, **kwargs: int) -> None:
         self.left: float | str = ""
         self.right: float | str = ""
         self.symbol: str = ""
         self.correct: float | complex | tuple[int, int] | None = None
         self.display: str = ""
+        self.special: dict[str, int] | None = kwargs
 
     @abstractmethod
     def new(self, top: int) -> None:
@@ -113,6 +114,30 @@ def times_tables(top: int, num: int) -> QuestionData:
     correct = (left * right, left * right)
     display = f"{left} * {right}"
     return QuestionData(name, left, right, correct, display)
+
+
+class TimesTables(QuestionInfo):
+    textual_input_type = "integer"
+    input_restrictions = None
+
+    def new(self, top: int) -> None:
+        self.symbol = "*"
+        num = self.special["num"]
+        other_num = random.randint(1, top)
+        if random.random() < 0.5:
+            left, right = (num, other_num)
+        else:
+            left, right = (other_num, num)
+        self.left = left
+        self.right = right
+        self.correct = self.left * self.right
+        self.display = f"{self.left} * {self.right}"
+
+    def verify_correct(self, usr_input: str) -> bool:
+        try:
+            return int(usr_input) == self.correct
+        except ValueError:
+            return False
 
 
 default = {

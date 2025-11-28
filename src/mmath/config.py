@@ -17,6 +17,7 @@ from mmath.operations import (
     Square,
     SquareRoot,
     Subtraction,
+    TimesTables,
     conversions,
     default,
     times_tables,
@@ -44,6 +45,24 @@ class Config:
             "miles_to_kilometers": MilesToKilometers,
             "pounds_to_kilograms": PoundsToKilograms,
             "kilograms_to_pounds": KilogramsToPounds,
+        }
+        self.ALLOPERATIONS: dict[str, QuestionInfo] = {
+            "addition": Addition,
+            "subtraction": Subtraction,
+            "multiplication": Multiplication,
+            "square": Square,
+            "square_root": SquareRoot,
+            "mod": Mod,
+            "complex_multiplication": ComplexMultiplication,
+            "fraction_addition": FractionAddition,
+            "fraction_multiplication": FractionMultiplication,
+            "fahrenheit_to_celsius": FahrenheitToCelsius,
+            "celsius_to_fahrenheit": CelsiusToFahrenheit,
+            "kilometers_to_miles": KilometersToMiles,
+            "miles_to_kilometers": MilesToKilometers,
+            "pounds_to_kilograms": PoundsToKilograms,
+            "kilograms_to_pounds": KilogramsToPounds,
+            "times_tables": TimesTables,
         }
         self.SPECIAL = {
             "times_tables": times_tables,

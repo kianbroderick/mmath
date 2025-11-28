@@ -9,11 +9,12 @@ from textual.message import Message
 from textual.screen import ModalScreen, Screen
 from textual.validation import Number
 from textual.widget import Widget
-from textual.widgets import Button, Footer, Input, Label
+from textual.widgets import Button, Footer, Input, Label, Switch
 
 from mmath.config import CONFIG
 from mmath.data.data_screen import EndScreen
 from mmath.operations import AnswerData, QuestionData, times_tables
+from mmath.questions.question_screen import QuestionScreen
 from mmath.questions.question_widgets import (
     AnswerBox,
     QuestionDisplay,
@@ -69,6 +70,20 @@ class ConfigureTimesTablesScreen(ModalScreen):
                 valid_empty=False,
                 id="tt_number_of_questions",
             )
+            self.timer_input = Input(
+                type="number",
+                id="timer_input",
+                placeholder="Enter a number",
+                validators=[Number(minimum=0.0001)],
+                validate_on=("changed",),
+            )
+            self.timer_input.visible = False
+            yield Horizontal(
+                Label("Timer"),
+                Switch(animate=False),
+                self.timer_input,
+                id="timer_container",
+            )
             self.start_button = Button(
                 "Start", id="start_times_tables", disabled=True, classes="next_button"
             )
@@ -76,11 +91,29 @@ class ConfigureTimesTablesScreen(ModalScreen):
             yield Horizontal(self.back_button, Container(), self.start_button)
         yield Footer()
 
-    def on_input_changed(self, event: Input.Changed) -> None:
+    def on_input_changed(self) -> None:
+        self.check_ready()
+        self.timer = self.timer_input.value
+
+    def on_switch_changed(self) -> None:
+        switch = self.query_one(Switch)
+        if switch.value:
+            self.timer_input.visible = True
+        else:
+            self.timer_input.visible = False
+        self.check_ready()
+
+    def check_ready(self) -> None:
         all_inputs = self.query(Input)
-        self.start_button.disabled = not all(
-            (i.is_valid and bool(i.value)) for i in all_inputs
-        )
+        switch = self.query_one(Switch)
+        if switch.value:
+            self.start_button.disabled = not all(
+                i.value and i.is_valid for i in all_inputs
+            )
+        else:
+            self.start_button.disabled = not all(
+                i.value and i.is_valid for i in all_inputs if i.id != "timer_input"
+            )
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         if not self.start_button.disabled:
@@ -101,8 +134,14 @@ class ConfigureTimesTablesScreen(ModalScreen):
         number_of_questions = int(
             self.query_one("#tt_number_of_questions", Input).value
         )
-        tt_config = TimesTableConfig(times_table, top, number_of_questions)
-        self.app.push_screen(TimesTableScreen(tt_config))
+        self.app.push_screen(
+            QuestionScreen(
+                {"times_tables": top},
+                number_of_questions,
+                self.timer,
+                special=times_table,
+            )
+        )
 
 
 class TimesTablesUI(Widget):

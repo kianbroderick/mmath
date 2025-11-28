@@ -42,8 +42,8 @@ class SelectSpecialScreen(Screen):
         if event.button.id == "times_tables_button":
             await self.app.push_screen_wait(ConfigureTimesTablesScreen())
         if event.button.id == "default_button":
-            num_q = await self.app.push_screen_wait(NumberOfQuestionsScreen())
-            self.app.push_screen(QuestionScreen(default, num_q))
+            num_q, timer = await self.app.push_screen_wait(NumberOfQuestionsScreen())
+            self.app.push_screen(QuestionScreen(default, num_q, timer))
         elif "back_button" in event.button.classes:
             self.app.pop_screen()
 

@@ -15,16 +15,20 @@ class QuestionScreen(Screen):
         question_maxes: dict[str, int],
         number_of_questions: int,
         timer: str | None,
+        special: int | None = None,
     ) -> None:
         super().__init__()
         self.question_maxes = question_maxes
         self.number_of_questions = number_of_questions
         self.timer = timer
+        self.special = special
 
     CSS_PATH = "../styles/questionui.tcss"
 
     def compose(self) -> ComposeResult:
-        self.qui = QuestionUI(self.question_maxes, self.number_of_questions, self.timer)
+        self.qui = QuestionUI(
+            self.question_maxes, self.number_of_questions, self.timer, self.special
+        )
         yield self.qui
         yield Footer()
 
@@ -36,15 +40,3 @@ class QuestionScreen(Screen):
             self.qui.update_timer.resume()
         else:
             self.app.pop_screen()
-
-
-class QuestionScreenTest(App):
-    CSS_PATH = "../styles/questionui.tcss"
-
-    def compose(self) -> ComposeResult:
-        self.qui = QuestionUI({"addition": 3}, 3)
-        yield self.qui
-
-
-if __name__ == "__main__":
-    QuestionScreenTest().run()

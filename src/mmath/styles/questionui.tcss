@@ -5,6 +5,15 @@ QuestionScreen {
         border: thick $secondary;
         align-horizontal: center;
     }
+    QuestionUI ProgressBar {
+        margin: 1;
+    }
+    QuestionUI ProgressBar.normal Bar > .bar--bar {
+        color: $primary;
+    }
+    QuestionUI ProgressBar.ending Bar > .bar--bar {
+        color: $error;
+    }
 
     QuestionUI AnswerBox {
         height: auto;

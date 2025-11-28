@@ -46,12 +46,18 @@ and you may use **i**,** I**,** j**, or **J** as the imaginary unit. The multipl
 """
 
 SQUARE_ROOT_MD = """\
+**Square root** asks you to calculate the square root of a given number. \
+You must answer within 1% of the interval defined by the exact solution and the approximation after one iteration of the Newton-Raphson method. \
+The upper and lower bounds are rounded up and down to the nearest integer, respectively. \n
+**Newton-Raphson Method**\n
+Let **n** be the number you are attempting to square root, **x** be your first guess, and **y** be your solution. \n
+y = x - (x^2 - n) / (2 * x)
 """
 
 CONVERSIONS_MD = """\
 Each **unit conversion** allows for a range of correct solutions. \
 You must answer within 1% of the interval defined by the exact solution and the mental approximation. \
-The upper bound and lower bounds and rounded up and down to the nearest integer, respectively. \n
+The upper bound and lower bounds are rounded up and down to the nearest integer, respectively. \n
 **Pounds to Kilograms**\n
 Exact: kg = 0.4535924 * lb\n
 Approx: kg = 0.45 * lb, or divide by 2 and subtract 10%\n

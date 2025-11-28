@@ -13,6 +13,11 @@ ConfigureTimesTablesScreen {
         grid-columns: 1fr 2fr;
         width: auto;
     }
+    #timer_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 6fr;
+    }
     align: center middle;
     Label {
         width: 100%;

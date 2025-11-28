@@ -3,12 +3,13 @@ import time
 from typing import TYPE_CHECKING
 
 from textual import on
+from textual.color import Gradient
 from textual.containers import Center
 from textual.message import Message
 from textual.reactive import reactive
 from textual.validation import Number
 from textual.widget import Widget
-from textual.widgets import Button, Digits, Input, Label, Static
+from textual.widgets import Button, Digits, Input, Label, ProgressBar, Static
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -84,13 +85,18 @@ class QuestionUI(Widget):
     start_time = reactive(time.monotonic)
 
     def __init__(
-        self, op_maxes: dict[str, int], number_of_questions: int, timer: str | None
+        self,
+        op_maxes: dict[str, int],
+        number_of_questions: int,
+        timer: str | None,
+        special: int | None = None,
     ) -> None:
         super().__init__()
         self.op_maxes = op_maxes
         self.number_of_questions = number_of_questions
         self.question_timer = float(timer) if timer else None
         self.answer_data: dict[int, AnswerData] = {}
+        self.special = special
         self.add_class("question-ui")
 
     def compose(self) -> ComposeResult:
@@ -99,6 +105,12 @@ class QuestionUI(Widget):
         self.answer_box = AnswerBox()
         yield self.question_number
         yield Center(self.question_display)
+        with Center():
+            yield ProgressBar(
+                total=self.question_timer,
+                show_eta=False,
+                show_percentage=False,
+            )
         yield self.answer_box
 
     def on_mount(self) -> None:
@@ -116,14 +128,23 @@ class QuestionUI(Widget):
 
     def watch_timer(self, time: float) -> None:
         """If the user set a timer, move to the next question when time is up."""
-        if self.question_timer and time > self.question_timer:
-            self.out_of_time()
+        bar = self.query_one(ProgressBar)
+        bar.update(progress=time)
+        if self.question_timer:
+            if time < 0.75 * self.question_timer:
+                bar.add_class("normal")
+            elif time < self.question_timer:
+                bar.remove_class("normal")
+                bar.add_class("ending")
+            elif time > self.question_timer:
+                bar.remove_class(*["normal", "ending"])
+                self.out_of_time()
 
     def new_question_data(self) -> None:
         operation = random.choice(list(self.op_maxes.keys()))
         top = self.op_maxes[operation]
-        cls = CONFIG.QUESTIONDATA[operation]
-        self.question = cls()
+        cls = CONFIG.ALLOPERATIONS[operation]
+        self.question = cls(num=self.special)
         self.question.new(top)
         self.answer_box.answer_box.restrict = self.question.input_restrictions
         self.answer_box.answer_box.type = self.question.textual_input_type
@@ -181,17 +202,14 @@ class QuestionUI(Widget):
             self.n_err += 1
 
     def out_of_time(self) -> None:
-        if self.check_finished():
-            return
-        else:
-            self.answer_box.answer_box.clear()
-            self.flash_class(self.answer_box.answer_box, "incorrect")
-            self.flash_class(self.question_display, "incorrect")
-            self.flash_class(self.question_number, "incorrect")
-            self.flash_class(self, "incorrect")
-            qdata = self.question
-            answerdata = AnswerData(
-                qdata.symbol, qdata.left, qdata.right, self.timer, "time"
-            )
-            self.answer_data[self.question_number.current] = answerdata
-            self.new_question()
+        self.answer_box.answer_box.clear()
+        self.flash_class(self.answer_box.answer_box, "incorrect")
+        self.flash_class(self.question_display, "incorrect")
+        self.flash_class(self.question_number, "incorrect")
+        self.flash_class(self, "incorrect")
+        qdata = self.question
+        answerdata = AnswerData(
+            qdata.symbol, qdata.left, qdata.right, self.timer, "time"
+        )
+        self.answer_data[self.question_number.current] = answerdata
+        self.new_question()
