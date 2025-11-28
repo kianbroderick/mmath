@@ -22,7 +22,7 @@ GET_STARTED_MD = """\
 From the main menu, use **enter** or **space** to select which operations you wish to practice. \
 Then enter your desired number of questions, and after hitting **next** you will arrive at the configuration screen. \
 You will enter the maximum number you wish to calculate for that operation. \
-For example, entering '999' for addition will let you practice three digit addition. \
+For example, entering '999' for **addition** will let you practice three digit addition. \
 Pressing **submit** will send you to the quiz screen, where you will have to answer the questions. \
 After the quiz, you will see an end screen containing statistics about your quiz, and you can view the data more in-depth by pressing **d**.
 """
@@ -40,14 +40,15 @@ You must answer in the form '**quotient r remainder**'. If there is no remainder
 
 FRACTIONS_MD = """\
 **Fraction addition** and **multiplication** requires you to enter the sum or product in the most simplified form. \
-Enter your solution as 'numerator / denominator'.
+The fractions in the question are in the most simplified form. \
+Enter your solution as '**numerator / denominator**'.
 """
 
 COMPLEX_MD = """\
 **Complex multiplication** of two complex numbers a + bi and c + di is computed as \n
 (a + b\\*i) * (c + d\\*i) = (a*c - b*d) + (a*d + b*c)*i. \n
 Enter your solution as a sum of the real part and the imaginary part. The real part must come first, \
-and you may use **i**,** I**,** j**, or **J** as the imaginary unit. The multiplication sign between the imaginary part and **i** is optional.
+and you may use **i**, **I**, **j**, or **J** as the imaginary unit. The multiplication sign between the imaginary part and **i** is optional.
 """
 
 SQUARE_ROOT_MD = """\
@@ -113,7 +114,7 @@ class Content(VerticalScroll, can_focus=False): ...
 
 class HelpScreen(ModalScreen):
     CSS_PATH = "styles/help_screen.tcss"
-    BINDINGS = [("q,b,h", "close", "Close")]
+    BINDINGS = [("q,b,h,escape", "close", "Close")]
 
     def compose(self) -> ComposeResult:
         with Content():

@@ -94,7 +94,7 @@ class QuestionInfo(ABC):
         """Check correctness."""
 
 
-DIVISOR_MAX: int = 5
+DIVISOR_MAX: int = 2
 TOLERANCE: float = 0.01
 
 
@@ -352,6 +352,8 @@ class FractionAddition(QuestionInfo):
         b = random.randint(1, top)
         c = random.randint(1, top)
         d = random.randint(1, top)
+        a, b = simplify_fraction(a, b)
+        c, d = simplify_fraction(c, d)
         self.left = display_fraction(a, b)
         self.right = display_fraction(c, d)
         self.correct = simplify_fraction(a * d + b * c, b * d)
@@ -376,6 +378,8 @@ class FractionMultiplication(QuestionInfo):
         b = random.randint(1, top)
         c = random.randint(1, top)
         d = random.randint(1, top)
+        a, b = simplify_fraction(a, b)
+        c, d = simplify_fraction(c, d)
         self.left = display_fraction(a, b)
         self.right = display_fraction(c, d)
         self.correct = simplify_fraction(a * c, b * d)
