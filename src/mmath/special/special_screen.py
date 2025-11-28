@@ -9,6 +9,7 @@ from mmath.config import CONFIG
 from mmath.operations import default
 from mmath.questions.question_screen import QuestionScreen
 from mmath.special.num_questions_screen import NumberOfQuestionsScreen
+from mmath.special.powers import ConfigurePowersScreen
 from mmath.special.times_tables import ConfigureTimesTablesScreen, TimesTableScreen
 
 if TYPE_CHECKING:
@@ -41,9 +42,16 @@ class SelectSpecialScreen(Screen):
     async def config_times_tables(self, event: Button.Pressed) -> None:
         if event.button.id == "times_tables_button":
             await self.app.push_screen_wait(ConfigureTimesTablesScreen())
+        if event.button.id == "powers_button":
+            await self.app.push_screen_wait(ConfigurePowersScreen())
         if event.button.id == "default_button":
             num_q, timer = await self.app.push_screen_wait(NumberOfQuestionsScreen())
             self.app.push_screen(QuestionScreen(default, num_q, timer))
+        if event.button.id == "calendar_button":
+            num_q, timer = await self.app.push_screen_wait(NumberOfQuestionsScreen())
+            self.app.push_screen(
+                QuestionScreen({"calendar": 1}, num_q, timer, special=None)
+            )
         elif "back_button" in event.button.classes:
             self.app.pop_screen()
 

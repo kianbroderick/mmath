@@ -1,3 +1,4 @@
+from textual import events
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.widgets import Footer
@@ -8,7 +9,11 @@ from mmath.questions.question_widgets import QuestionUI
 
 
 class QuestionScreen(Screen):
-    BINDINGS = CONFIG.DEFAULT_BINDINGS
+    BINDINGS = [
+        ("escape", "back_to_menu", "Back to menu"),
+        ("q", "quit", "Quit"),
+        ("d", "toggle_dark", "Toggle dark mode"),
+    ]
 
     def __init__(
         self,
@@ -40,3 +45,6 @@ class QuestionScreen(Screen):
             self.qui.update_timer.resume()
         else:
             self.app.pop_screen()
+
+    def action_back_to_menu(self) -> None:
+        self.app.pop_screen()

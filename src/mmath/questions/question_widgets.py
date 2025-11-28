@@ -114,6 +114,8 @@ class QuestionUI(Widget):
         yield self.answer_box
 
     def on_mount(self) -> None:
+        if not self.question_timer:
+            self.query_one(ProgressBar).visible = False
         self.new_question()
         self.update_timer = self.set_interval(1 / 60, self.update_time)
 

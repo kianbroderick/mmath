@@ -33,6 +33,11 @@ ARITHMETIC_MD = """\
 For example, 22 mod 10 is equal to 2.
 """
 
+DIVISION_MD = """\
+**Division** has you calculate the quotient and remainder of a division question. \
+You must answer in the form '**quotient r remainder**'. If there is no remainder, just writing the solution is accepted.
+"""
+
 FRACTIONS_MD = """\
 **Fraction addition** and **multiplication** requires you to enter the sum or product in the most simplified form. \
 Enter your solution as 'numerator / denominator'.
@@ -82,30 +87,25 @@ Exact: F = (C - 32) / 1.8\n
 Approx: F = (C - 30) / 2\n
 """
 
-CALENDAR_MD = """\
-Coming soon...
-"""
 
 SPECIAL_MD = """\
 Selecting **special** from the menu screen takes you to the specials screen. \n
 **Times tables** allows you to enter a specific number and practice its times table. \
 Choose the number you want to practice, and the value you want to practice up to. \n
-**Default** is three digit addition and subtraction and two digit multiplication, squaring, and square roots.
+**Default** is three digit addition and subtraction and two digit multiplication, squaring, and square roots. \n
+**Calendar** gives you a date between the years 1600-2099, as per the rules in the Memoriad or the Mental Calculation World Cup. \
+Your answer is the day of the week that that day was.
 
+| Day           | Accepted Inputs (not case sensitive) |
+| ------------- | ---------------------------          |
+| **Sunday**    | sunday, sun, 0                       |
+| **Monday**    | monday, mon, m, 1                       |
+| **Tuesday**   | tuesday, tue, tues, t, 2                |
+| **Wednesday** | wednesday, wed, w, 3                    |
+| **Thursday**  | thursday, thu, th, thurs, 4          |
+| **Friday**    | friday, fri, f, 5                       |
+| **Saturday**  | saturday, sat, 6                     |
 """
-
-DISTANCE_CONV = [
-    """
-**Miles to Kilometers**\n
-Exact: km = 0.6213712 * mi\n
-Approx: km = 0.625 * mi, or divide by 8 and multiply by 5\n
-""",
-    """
-**Miles to Kilometers**\n
-Exact: mi = 1.609344 * km\n
-Approx: km = 1.6 * mi, or multiply by 8 and divide by 5\n
-""",
-]
 
 
 class Content(VerticalScroll, can_focus=False): ...
@@ -122,6 +122,8 @@ class HelpScreen(ModalScreen):
                 yield Markdown(GET_STARTED_MD)
             with Collapsible(title="Arithmetic"):
                 yield Markdown(ARITHMETIC_MD)
+            with Collapsible(title="Division"):
+                yield Markdown(DIVISION_MD)
             with Collapsible(title="Fractions"):
                 yield Markdown(FRACTIONS_MD)
             with Collapsible(title="Complex"):
@@ -130,8 +132,6 @@ class HelpScreen(ModalScreen):
                 yield Markdown(SQUARE_ROOT_MD)
             with Collapsible(title="Unit Conversions"):
                 yield Markdown(CONVERSIONS_MD)
-            with Collapsible(title="Calendar"):
-                yield Markdown(CALENDAR_MD)
             with Collapsible(title="Special"):
                 yield Markdown(SPECIAL_MD)
         yield Footer()

@@ -1,9 +1,12 @@
+from calendar import Calendar
 from typing import TYPE_CHECKING
 
 from mmath.operations import (
     Addition,
+    Calendar,
     CelsiusToFahrenheit,
     ComplexMultiplication,
+    Division,
     FahrenheitToCelsius,
     FractionAddition,
     FractionMultiplication,
@@ -13,6 +16,7 @@ from mmath.operations import (
     Mod,
     Multiplication,
     PoundsToKilograms,
+    Powers,
     QuestionInfo,
     Square,
     SquareRoot,
@@ -33,6 +37,7 @@ class Config:
             "addition": Addition,
             "subtraction": Subtraction,
             "multiplication": Multiplication,
+            "division": Division,
             "square": Square,
             "square_root": SquareRoot,
             "mod": Mod,
@@ -63,11 +68,15 @@ class Config:
             "pounds_to_kilograms": PoundsToKilograms,
             "kilograms_to_pounds": KilogramsToPounds,
             "times_tables": TimesTables,
+            "powers": Powers,
+            "division": Division,
+            "calendar": Calendar,
         }
         self.SPECIAL = {
             "times_tables": times_tables,
             "default": default,
-            "conversions": conversions,
+            "calendar": Calendar,
+            "powers": Powers,
         }
         self.DEFAULT_BINDINGS: list[BindingType] = [
             ("q", "quit", "Quit"),

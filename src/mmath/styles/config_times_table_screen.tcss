@@ -37,3 +37,43 @@ ConfigureTimesTablesScreen {
         content-align: center middle;
     }
 }
+
+ConfigurePowersScreen {
+    #config_tt_main_container {
+        padding: 3;
+        background: $panel;
+        width: 90%;
+        height: 90%;
+        max-width: 110;
+        max-height: 30;
+        content-align: center middle;
+        align: center middle;
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 2fr;
+        width: auto;
+    }
+    #timer_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 6fr;
+    }
+    align: center middle;
+    Label {
+        width: 100%;
+        height: auto;
+        align: center middle;
+        padding: 1;
+    }
+
+    Input {
+        column-span: 2;
+    }
+
+    Horizontal {
+        height: auto;
+        column-span: 3;
+        align-horizontal: center;
+        content-align: center middle;
+    }
+}

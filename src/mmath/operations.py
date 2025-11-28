@@ -1,3 +1,4 @@
+import datetime
 import random
 import re
 from abc import ABC, abstractmethod
@@ -55,6 +56,17 @@ def parse_fraction(fraction: str) -> tuple[int, int]:
 
 def display_fraction(num: float | str, denom: float | str) -> str:
     return f"{num} / {denom}"
+
+
+def parse_division(ans: str) -> tuple[int, int]:
+    ex = r"(\d+)(?:\s*[rR]\s*(\d+))?"
+    numbers = re.match(ex, ans)
+    if numbers:
+        quotient = int(numbers.group(1))
+        remainder = int(numbers.group(2)) if numbers.group(2) else 0
+    else:
+        raise ValueError
+    return (quotient, remainder)
 
 
 def display_text(text: str) -> str:
@@ -140,6 +152,24 @@ class TimesTables(QuestionInfo):
             return False
 
 
+class Powers(QuestionInfo):
+    textual_input_type = "integer"
+    input_restrictions = None
+
+    def new(self, top: int) -> None:
+        self.symbol = "^"
+        self.left = self.special["num"]
+        self.right = random.randint(1, top)
+        self.correct = self.left**self.right
+        self.display = f"{self.left}^{self.right}"
+
+    def verify_correct(self, usr_input: str) -> bool:
+        try:
+            return int(usr_input) == self.correct
+        except ValueError:
+            return False
+
+
 default = {
     "addition": 999,
     "subtraction": 999,
@@ -203,6 +233,26 @@ class Multiplication(QuestionInfo):
             return int(usr_input) == self.correct
         except ValueError:
             return False
+
+
+class Division(QuestionInfo):
+    textual_input_type = "text"
+    input_restrictions = "[0123456789rR\\s]*"
+
+    def new(self, top: int) -> None:
+        self.symbol = "/"
+        self.left = random.randint(1, top)
+        self.right = random.randint(1, max(floor(self.left / DIVISOR_MAX), 1))
+        self.correct = divmod(self.left, self.right)
+        self.display = f"{self.left} / {self.right}"
+
+    def verify_correct(self, usr_input: str) -> bool:
+        correct_quotient, correct_remainder = self.correct
+        try:
+            usr_quotient, usr_remainder = parse_division(usr_input)
+        except ValueError:
+            return False
+        return usr_quotient == correct_quotient and usr_remainder == correct_remainder
 
 
 class Square(QuestionInfo):
@@ -329,9 +379,7 @@ class FractionMultiplication(QuestionInfo):
         self.left = display_fraction(a, b)
         self.right = display_fraction(c, d)
         self.correct = simplify_fraction(a * c, b * d)
-        self.display = (
-            f"{display_fraction(a, b)} * {display_fraction(c, d)}{self.correct=}"
-        )
+        self.display = f"{display_fraction(a, b)} * {display_fraction(c, d)}"
 
     def verify_correct(self, usr_input: str) -> bool:
         correct_num, correct_denom = self.correct
@@ -466,3 +514,57 @@ class KilometersToMiles(QuestionInfo):
             return in_bounds(float(usr_input), (lower_bound, upper_bound))
         except ValueError:
             return False
+
+
+def random_date() -> datetime.date:
+    start = datetime.date(1600, 1, 1)
+    end = datetime.date(2099, 12, 31)
+    return datetime.date.fromordinal(random.randint(start.toordinal(), end.toordinal()))
+
+
+class Calendar(QuestionInfo):
+    textual_input_type = "text"
+    input_restrictions = None
+
+    def new(self, top: int) -> None:
+        self.symbol = "cal"
+        date_question = random_date()
+        self.left = date_question.strftime("%B %d, %Y")
+        self.correct = (date_question.weekday() + 1) % 7
+        day = date_question.day
+        self.display = (
+            f"The day of the week of {date_question.strftime('%B {}, %Y').format(day)}"
+        )
+
+    def verify_correct(self, usr_input: str) -> bool:
+        week_dict: dict[str, int] = {
+            "sunday": 0,
+            "sun": 0,
+            "0": 0,
+            "monday": 1,
+            "mon": 1,
+            "m": 1,
+            "1": 1,
+            "tuesday": 2,
+            "tue": 2,
+            "tues": 2,
+            "t": 2,
+            "2": 2,
+            "wednesday": 3,
+            "wed": 3,
+            "w": 3,
+            "3": 3,
+            "thursday": 4,
+            "thu": 4,
+            "th": 4,
+            "thurs": 4,
+            "4": 4,
+            "friday": 5,
+            "fri": 5,
+            "f": 5,
+            "5": 5,
+            "saturday": 6,
+            "sat": 6,
+            "6": 6,
+        }
+        return week_dict.get(usr_input.lower()) == self.correct
