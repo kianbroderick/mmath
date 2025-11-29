@@ -188,11 +188,11 @@ class Subtraction(QuestionInfo):
     input_restrictions = None
 
     def new(self, top: int) -> None:
-        self.symbol = "-"
+        self.symbol = "−"
         self.left = random.randint(1, top)
         self.right = random.randint(1, self.left)
         self.correct = self.left - self.right
-        self.display = f"{self.left} - {self.right}"
+        self.display = f"{self.left} − {self.right}"
 
     def verify_correct(self, usr_input: str) -> bool:
         try:
@@ -304,7 +304,7 @@ class ComplexMultiplication(QuestionInfo):
     input_restrictions = r"[\+\-\*\s0123456789iIjJ]*"
 
     def new(self, top: int) -> None:
-        self.symbol = "*"
+        self.symbol = "×"
         a = random.randint(-top, top)
         b = random.randint(-top, top)
         c = random.randint(-top, top)
@@ -315,7 +315,7 @@ class ComplexMultiplication(QuestionInfo):
         self.right = print_complex_number(c, d)
         self.correct = first * second
         self.display = (
-            f"({print_complex_number(a, b)}) * ({print_complex_number(c, d)})"
+            f"({print_complex_number(a, b)}) × ({print_complex_number(c, d)})"
         )
 
     def verify_correct(self, usr_input: str) -> bool:
@@ -357,7 +357,7 @@ class FractionMultiplication(QuestionInfo):
     input_restrictions = r"[0123456789\/\s]*"
 
     def new(self, top: int) -> None:
-        self.symbol = "*"
+        self.symbol = "×"
         a = random.randint(1, top)
         b = random.randint(1, top)
         c = random.randint(1, top)
