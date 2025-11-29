@@ -133,7 +133,7 @@ class TimesTables(QuestionInfo):
     input_restrictions = None
 
     def new(self, top: int) -> None:
-        self.symbol = "*"
+        self.symbol = "×"
         num = self.special["num"]
         other_num = random.randint(1, top)
         if random.random() < 0.5:
@@ -143,7 +143,7 @@ class TimesTables(QuestionInfo):
         self.left = left
         self.right = right
         self.correct = self.left * self.right
-        self.display = f"{self.left} * {self.right}"
+        self.display = f"{self.left} × {self.right}"
 
     def verify_correct(self, usr_input: str) -> bool:
         try:
@@ -222,11 +222,11 @@ class Multiplication(QuestionInfo):
     input_restrictions = None
 
     def new(self, top: int) -> None:
-        self.symbol = "*"
+        self.symbol = "×"
         self.left = random.randint(1, top)
         self.right = random.randint(1, top)
         self.correct = self.left * self.right
-        self.display = f"{self.left} * {self.right}"
+        self.display = f"{self.left} × {self.right}"
 
     def verify_correct(self, usr_input: str) -> bool:
         try:
@@ -240,11 +240,11 @@ class Division(QuestionInfo):
     input_restrictions = "[0123456789rR\\s]*"
 
     def new(self, top: int) -> None:
-        self.symbol = "/"
+        self.symbol = "÷"
         self.left = random.randint(1, top)
         self.right = random.randint(1, max(floor(self.left / DIVISOR_MAX), 1))
         self.correct = divmod(self.left, self.right)
-        self.display = f"{self.left} / {self.right}"
+        self.display = f"{self.left} ÷ {self.right}"
 
     def verify_correct(self, usr_input: str) -> bool:
         correct_quotient, correct_remainder = self.correct
@@ -298,7 +298,7 @@ class SquareRoot(QuestionInfo):
     def new(self, top: int) -> None:
         self.symbol = "sqrt"
         self.left = random.randint(1, top)
-        self.display = f"sqrt( {self.left} )"
+        self.display = f"√{self.left}"
         self.correct = sqrt(self.left)
 
     def verify_correct(self, usr_input: str) -> bool:

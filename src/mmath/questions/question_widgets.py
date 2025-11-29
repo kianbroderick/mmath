@@ -91,7 +91,7 @@ class QuestionUI(Widget):
         op_maxes: dict[str, int],
         number_of_questions: int,
         timer: str | None,
-        vanish: float | None = None,
+        vanish: str | None = None,
         special: int | None = None,
     ) -> None:
         super().__init__()

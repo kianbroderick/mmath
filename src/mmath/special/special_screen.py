@@ -45,12 +45,18 @@ class SelectSpecialScreen(Screen):
         if event.button.id == "powers_button":
             await self.app.push_screen_wait(ConfigurePowersScreen())
         if event.button.id == "default_button":
-            num_q, timer = await self.app.push_screen_wait(NumberOfQuestionsScreen())
-            self.app.push_screen(QuestionScreen(default, num_q, timer))
+            num_q, timer, vanish = await self.app.push_screen_wait(
+                NumberOfQuestionsScreen()
+            )
+            self.app.push_screen(QuestionScreen(default, num_q, timer, vanish=vanish))
         if event.button.id == "calendar_button":
-            num_q, timer = await self.app.push_screen_wait(NumberOfQuestionsScreen())
+            num_q, timer, vanish = await self.app.push_screen_wait(
+                NumberOfQuestionsScreen()
+            )
             self.app.push_screen(
-                QuestionScreen({"calendar": 1}, num_q, timer, special=None)
+                QuestionScreen(
+                    {"calendar": 1}, num_q, timer, vanish=vanish, special=None
+                )
             )
         elif "back_button" in event.button.classes:
             self.app.pop_screen()

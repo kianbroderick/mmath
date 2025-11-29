@@ -27,6 +27,13 @@ Pressing **submit** will send you to the quiz screen, where you will have to ans
 After the quiz, you will see an end screen containing statistics about your quiz, and you can view the data more in-depth by pressing **d**.
 """
 
+TIMER_VANISH_MD = """\
+You can optionally set a **timer** for each question or make the question **vanish** after a certain period. \
+The timer will make the question automatically continue to the next question after the time is up, \
+and will log the number of errors for that question as 'time'. Vanish will make the question disappear after a \
+time limit. Entering an incorrect answer will make the question reappear.
+"""
+
 ARITHMETIC_MD = """\
 **Addition**, **subtraction**, **multiplication**, and **square** are self-explanatory. You must enter the exact integer solution. \
 **Mod** requires you to calculate the remainder of the number on the left when divided by the number on the right. \
@@ -64,28 +71,16 @@ CONVERSIONS_MD = """\
 Each **unit conversion** allows for a range of correct solutions. \
 You must answer within 1% of the interval defined by the exact solution and the mental approximation. \
 The upper bound and lower bounds are rounded up and down to the nearest integer, respectively. \n
-**Pounds to Kilograms**\n
-Exact: kg = 0.4535924 * lb\n
-Approx: kg = 0.45 * lb, or divide by 2 and subtract 10%\n
 
-**Pounds to Kilograms**\n
-Exact: kg = 0.4535924 * lb\n
-Approx: kg = 0.45 * lb, or divide by 2 and subtract 10%\n
-**Kilograms to Pounds**\n
-Exact: lb = 2.204623 * kg\n
-Approx: kg = 2.2 * lb, or multiply by 2 and add 10%\n
-**Miles to Kilometers**\n
-Exact: km = 0.6213712 * mi\n
-Approx: km = 0.625 * mi, or divide by 8 and multiply by 5\n
-**Miles to Kilometers**\n
-Exact: mi = 1.609344 * km\n
-Approx: km = 1.6 * mi, or multiply by 8 and divide by 5\n
-**Celsius to Fahrenheit**\n
-Exact: C = F * 1.8 + 32\n
-Approx: C = F * 2 + 30\n
-**Fahrenheit to Celsius**\n
-Exact: F = (C - 32) / 1.8\n
-Approx: F = (C - 30) / 2\n
+| Conversion               | Exact Formula                 | Approx Formula                             |
+|--------------------------|-------------------------------|---------------------------------------------|
+| Pounds -> Kilograms       | kg = 0.4535924 × lb           | kg = 0.45 × lb; or lb ÷ 2 − 10%             |
+| Kilograms -> Pounds       | lb = 2.204623 × kg            | lb = 2.2 × kg; or kg × 2 + 10%              |
+| Miles -> Kilometers       | km = 0.6213712 × mi           | km = 0.625 × mi; or mi ÷ 8 × 5              |
+| Kilometers -> Miles       | mi = 1.609344 × km            | mi = 1.6 × km; or km × 8 ÷ 5                |
+| Celsius -> Fahrenheit     | F = C × 1.8 + 32              | F = C × 2 + 30                              |
+| Fahrenheit -> Celsius     | C = (F − 32) ÷ 1.8            | C = (F − 30) ÷ 2                            |
+
 """
 
 
@@ -121,6 +116,8 @@ class HelpScreen(ModalScreen):
             yield Markdown(MMATH_MAIN_MD)
             with Collapsible(title="Get Started", collapsed=False):
                 yield Markdown(GET_STARTED_MD)
+            with Collapsible(title="Settings"):
+                yield Markdown(TIMER_VANISH_MD)
             with Collapsible(title="Arithmetic"):
                 yield Markdown(ARITHMETIC_MD)
             with Collapsible(title="Division"):

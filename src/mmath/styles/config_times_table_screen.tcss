@@ -18,6 +18,11 @@ ConfigureTimesTablesScreen {
         grid-size: 3;
         grid-columns: 1fr 1fr 6fr;
     }
+    #vanish_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 6fr;
+    }
     align: center middle;
     Label {
         width: 100%;
@@ -54,6 +59,11 @@ ConfigurePowersScreen {
         width: auto;
     }
     #timer_container {
+        layout: grid;
+        grid-size: 3;
+        grid-columns: 1fr 1fr 6fr;
+    }
+    #vanish_container {
         layout: grid;
         grid-size: 3;
         grid-columns: 1fr 1fr 6fr;
