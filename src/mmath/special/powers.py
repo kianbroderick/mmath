@@ -1,32 +1,20 @@
-import random
-import time
-from dataclasses import dataclass
+from typing import TYPE_CHECKING, ClassVar
 
-from textual import on, work
-from textual.app import ComposeResult
-from textual.containers import Center, Container, Horizontal
-from textual.message import Message
-from textual.screen import ModalScreen, Screen
+from textual.containers import Container, Horizontal
+from textual.screen import ModalScreen
 from textual.validation import Number
-from textual.widget import Widget
 from textual.widgets import Button, Footer, Input, Label, Switch
 
-from mmath.config import CONFIG
-from mmath.data.data_screen import EndScreen
-from mmath.operations import AnswerData, QuestionData, times_tables
 from mmath.questions.question_screen import QuestionScreen
-from mmath.questions.question_widgets import (
-    AnswerBox,
-    QuestionDisplay,
-    QuestionNumber,
-    QuestionUI,
-    in_bounds,
-)
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
+    from textual.binding import BindingType
 
 
 class ConfigurePowersScreen(ModalScreen):
     CSS_PATH = "../styles/config_times_table_screen.tcss"
-    BINDINGS = [("escape", "go_back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("escape", "go_back", "Back")]
 
     def compose(self) -> ComposeResult:
         with Container(id="config_tt_main_container"):
@@ -139,7 +127,7 @@ class ConfigurePowersScreen(ModalScreen):
                 if i.id not in ["timer_input", "vanish_input"]
             )
 
-    def on_input_submitted(self, event: Input.Submitted) -> None:
+    def on_input_submitted(self) -> None:
         if not self.submit_button.disabled:
             self.action_start_quiz()
 

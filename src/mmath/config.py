@@ -22,9 +22,7 @@ from mmath.operations import (
     SquareRoot,
     Subtraction,
     TimesTables,
-    conversions,
     default,
-    times_tables,
 )
 
 if TYPE_CHECKING:
@@ -73,7 +71,7 @@ class Config:
             "calendar": Calendar,
         }
         self.SPECIAL = {
-            "times_tables": times_tables,
+            "times_tables": TimesTables,
             "default": default,
             "calendar": Calendar,
             "powers": Powers,

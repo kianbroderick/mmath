@@ -1,7 +1,7 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from textual import on
-from textual.containers import Center, Container, Vertical
+from textual.containers import Center, Vertical
 from textual.events import Key
 from textual.validation import Number
 from textual.widget import Widget
@@ -19,6 +19,7 @@ from mmath.special.special_screen import SelectSpecialScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.binding import BindingType
 
 
 class SelectOperations(Vertical):
@@ -40,7 +41,7 @@ class SelectOperations(Vertical):
 
 
 class MainMenu(Widget):
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("s", "special_screen", "Special"),
         ("h", "goto_help", "Help"),
     ]

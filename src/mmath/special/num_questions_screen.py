@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
-from textual import events, on
+from textual import on
 from textual.containers import Container, Horizontal
 from textual.screen import ModalScreen
 from textual.validation import Number
@@ -8,11 +8,12 @@ from textual.widgets import Button, Input, Label, Switch
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.binding import BindingType
 
 
 class NumberOfQuestionsScreen(ModalScreen):
     CSS_PATH = "../styles/number_of_questions_screen.tcss"
-    BINDINGS = [("escape", "back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("escape", "back", "Back")]
 
     def compose(self) -> ComposeResult:
         with Container(id="num_questions_container"):
@@ -110,7 +111,7 @@ class NumberOfQuestionsScreen(ModalScreen):
         self.timer = self.timer_input.value
         self.vanish = self.vanish_input.value
 
-    def on_switch_changed(self, event=Switch.Changed) -> None:
+    def on_switch_changed(self, event: Switch.Changed) -> None:
         if event.switch.id == "timer_switch":
             self.timer_input.visible = event.switch.value
             self.timer_input.clear()

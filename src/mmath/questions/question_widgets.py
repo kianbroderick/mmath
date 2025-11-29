@@ -3,21 +3,19 @@ import time
 from typing import TYPE_CHECKING
 
 from textual import on
-from textual.color import Gradient
 from textual.containers import Center
 from textual.message import Message
 from textual.reactive import reactive
 from textual.validation import Number
 from textual.widget import Widget
-from textual.widgets import Button, Digits, Input, Label, ProgressBar, Static
+from textual.widgets import Button, Digits, Input, ProgressBar, Static
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
 
-    from mmath.operations import QuestionData
 
 from mmath.config import CONFIG
-from mmath.operations import AnswerData, QuestionInfo
+from mmath.operations import AnswerData
 
 
 class QuestionNumber(Widget):
@@ -171,8 +169,7 @@ class QuestionUI(Widget):
             self.post_message(self.Finished())
             self.update_timer.pause()
             return True
-        else:
-            return False
+        return False
 
     def new_question(self) -> None:
         if self.check_finished():

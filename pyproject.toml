@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-main = "mmath.main:main"
+mmath = "mmath.main:main"
 
 [tool.uv]
 package = true

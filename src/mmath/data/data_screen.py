@@ -1,11 +1,9 @@
 from statistics import mean, median, stdev
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
-from rich.console import JustifyMethod
 from rich.text import Text
 from textual import on
-from textual.binding import BindingType
-from textual.containers import Center, CenterMiddle, Container, Grid, VerticalScroll
+from textual.containers import Center, Container, Grid, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, DataTable, Footer, Label
 
@@ -13,13 +11,14 @@ from mmath.config import CONFIG
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.binding import BindingType
 
     from mmath.operations import AnswerData
 
 
 class DataScreen(Screen):
     CSS_PATH = "../styles/data_screen.tcss"
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("d,b", "go_back", "Close"),
         ("q", "sort_by_q", "Sort by question"),
         ("t", "sort_by_time", "Sort by time"),
@@ -113,7 +112,7 @@ class DataScreen(Screen):
 class EndScreen(ModalScreen):
     """Screen where you can get data, restart, or go back to mainmenu."""
 
-    BINDINGS: list[BindingType] = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("d", "goto_data_screen", "Data"),
         ("b", "mainmenu", "Exit to main menu"),
         ("r", "repeat", "Repeat"),

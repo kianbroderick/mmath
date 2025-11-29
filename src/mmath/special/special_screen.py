@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from textual import on, work
 from textual.containers import Grid
@@ -10,10 +10,11 @@ from mmath.operations import default
 from mmath.questions.question_screen import QuestionScreen
 from mmath.special.num_questions_screen import NumberOfQuestionsScreen
 from mmath.special.powers import ConfigurePowersScreen
-from mmath.special.times_tables import ConfigureTimesTablesScreen, TimesTableScreen
+from mmath.special.times_tables import ConfigureTimesTablesScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.binding import BindingType
 
 
 def convert_snake_case(string: str) -> str:
@@ -23,7 +24,7 @@ def convert_snake_case(string: str) -> str:
 class SelectSpecialScreen(Screen):
     SCOPED_CSS = True
     CSS_PATH = "../styles/special_screen.tcss"
-    BINDINGS = [("b", "go_back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("b", "go_back", "Back")]
 
     def compose(self) -> ComposeResult:
         with Grid(id="special_grid"):

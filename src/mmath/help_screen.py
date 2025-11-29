@@ -1,9 +1,11 @@
-from textual import events
-from textual.app import ComposeResult
-from textual.containers import Grid, Horizontal, VerticalScroll
-from textual.screen import ModalScreen, Screen
-from textual.widget import Widget
-from textual.widgets import Collapsible, Footer, Label, Markdown, Static, Tab, Tabs
+from typing import TYPE_CHECKING
+
+from textual.containers import VerticalScroll
+from textual.screen import ModalScreen
+from textual.widgets import Collapsible, Footer, Markdown
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
 
 TABNAMES = [
     "help",
@@ -30,7 +32,7 @@ After the quiz, you will see an end screen containing statistics about your quiz
 TIMER_VANISH_MD = """\
 You can optionally set a **timer** for each question or make the question **vanish** after a certain period. \
 The timer will make the question automatically continue to the next question after the time is up, \
-and will log the number of errors for that question as 'time'. Vanish will make the question disappear after a \
+and will log the mistakes for that question as 'time'. Vanish will make the question disappear after a \
 time limit. Entering an incorrect answer will make the question reappear.
 """
 
@@ -72,7 +74,7 @@ Each **unit conversion** allows for a range of correct solutions. \
 You must answer within 1% of the interval defined by the exact solution and the mental approximation. \
 The upper bound and lower bounds are rounded up and down to the nearest integer, respectively. \n
 
-| Conversion               | Exact Formula                 | Approx Formula                             |
+| Conversion               | Exact Formula                 | Approximate Formula                             |
 |--------------------------|-------------------------------|---------------------------------------------|
 | Pounds -> Kilograms       | kg = 0.4535924 × lb           | kg = 0.45 × lb; or lb ÷ 2 − 10%             |
 | Kilograms -> Pounds       | lb = 2.204623 × kg            | lb = 2.2 × kg; or kg × 2 + 10%              |

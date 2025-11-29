@@ -1,14 +1,17 @@
+from typing import TYPE_CHECKING, ClassVar
+
 from textual import on, work
 from textual.app import App, ComposeResult
 from textual.containers import Center
-from textual.widget import Widget
 from textual.widgets import Button, Footer, Input, Static
 
-from mmath.config import CONFIG
 from mmath.menus.mainmenu import MainMenu
 from mmath.menus.maxes_screen import InputMaxesScreen
 from mmath.questions.question_screen import QuestionScreen
 from mmath.special.special_screen import SelectSpecialScreen
+
+if TYPE_CHECKING:
+    from textual.binding import BindingType
 
 
 class Logo(Static):
@@ -42,7 +45,7 @@ class MentalMathApp(App):
         yield self.mainmenu
         yield Footer()
 
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("q", "quit", "Quit"),
         ("d", "toggle_dark", "Toggle dark mode"),
     ]
@@ -58,10 +61,12 @@ class MentalMathApp(App):
     @work
     @on(Input.Submitted)
     async def numq_submitted(self, event: Input.Submitted) -> None:
-        if event.input.id == "input_number_of_questions":
-            if not self.mainmenu.next_button.disabled:
-                await self.configure_maxes()
-                await self.start_quiz()
+        if (
+            event.input.id == "input_number_of_questions"
+            and not self.mainmenu.next_button.disabled
+        ):
+            await self.configure_maxes()
+            await self.start_quiz()
 
     async def configure_maxes(self) -> None:
         screen = InputMaxesScreen(self.mainmenu.ops.selection_list.selected)

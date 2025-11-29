@@ -4,8 +4,6 @@ import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from math import ceil, floor, gcd, sqrt
-from sys import displayhook
-from typing import Any, Optional, Protocol
 
 
 def in_bounds(test: float, bounds: tuple[float, float]) -> bool:
@@ -116,18 +114,6 @@ class AnswerData:
     number_of_errors: int | str
 
 
-def times_tables(top: int, num: int) -> QuestionData:
-    name = "*"
-    other_num = random.randint(1, top)
-    if random.random() < 0.5:
-        left, right = (num, other_num)
-    else:
-        left, right = (other_num, num)
-    correct = (left * right, left * right)
-    display = f"{left} * {right}"
-    return QuestionData(name, left, right, correct, display)
-
-
 class TimesTables(QuestionInfo):
     textual_input_type = "integer"
     input_restrictions = None
@@ -177,8 +163,6 @@ default = {
     "square_root": 99,
     "square": 99,
 }
-
-conversions = {}
 
 
 class Addition(QuestionInfo):
@@ -337,9 +321,9 @@ class ComplexMultiplication(QuestionInfo):
     def verify_correct(self, usr_input: str) -> bool:
         try:
             usr_real, usr_imag = complex_number_parser(usr_input)
-            return usr_real == self.correct.real and usr_imag == self.correct.imag
         except ValueError, NotAComplexNumberError:
             return False
+        return usr_real == self.correct.real and usr_imag == self.correct.imag
 
 
 class FractionAddition(QuestionInfo):

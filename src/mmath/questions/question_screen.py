@@ -1,15 +1,18 @@
-from textual import events
-from textual.app import App, ComposeResult
+from typing import TYPE_CHECKING, ClassVar
+
 from textual.screen import Screen
 from textual.widgets import Footer
 
-from mmath.config import CONFIG
 from mmath.data.data_screen import EndScreen
 from mmath.questions.question_widgets import QuestionUI
 
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
+    from textual.binding import BindingType
+
 
 class QuestionScreen(Screen):
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("escape", "back_to_menu", "Back to menu"),
         ("q", "quit", "Quit"),
         ("d", "toggle_dark", "Toggle dark mode"),

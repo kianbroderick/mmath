@@ -1,21 +1,21 @@
+from typing import TYPE_CHECKING, ClassVar
+
 from textual.app import App, ComposeResult
 from textual.containers import (
-    Center,
     Container,
-    Grid,
     Horizontal,
-    HorizontalGroup,
-    Right,
     Vertical,
     VerticalScroll,
 )
 from textual.screen import Screen
 from textual.validation import Number
-from textual.widget import Widget
-from textual.widgets import Button, Footer, Input, Label, Static, Switch
+from textual.widgets import Button, Footer, Input, Label, Switch
 
 from mmath.config import CONFIG
 from mmath.operations import display_text
+
+if TYPE_CHECKING:
+    from textual.binding import BindingType
 
 
 class InputMaxes(Vertical, can_focus=False):
@@ -41,7 +41,7 @@ class InputMaxes(Vertical, can_focus=False):
 
 class InputMaxesScreen(Screen):
     CSS_PATH = "../styles/maxes_screen.tcss"
-    BINDINGS = [("b", "go_back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("b", "go_back", "Back")]
 
     def __init__(self, selected_operations: list[str]) -> None:
         self.selected_operations = selected_operations
@@ -142,8 +142,7 @@ class InputMaxesScreen(Screen):
     def on_input_submitted(self) -> None:
         if self.submit_button.disabled:
             return
-        else:
-            self.return_data()
+        self.return_data()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if "back_button" in event.button.classes:
