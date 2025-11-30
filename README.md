@@ -7,6 +7,12 @@ A mental math training TUI application. Built with Python using the `textual` li
 - Options to set a limit on the time per question and make the question vanish after a time.
 - Detailed data screen
 
+## Gallery
+![Main Menu](./img/main_menu.png)
+![Question Screen](./img/question.png)
+![End Screen](./img/end_screen.png)
+![Data Screen](./img/data_screen.png)
+
 ## Usage
 Run `mmath` from the command line to start the application. Press `h` to view the help screen which details the options.
 
