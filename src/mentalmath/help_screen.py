@@ -32,7 +32,7 @@ After the quiz, you will see an end screen containing statistics about your quiz
 TIMER_VANISH_MD = """\
 You can optionally set a **timer** for each question or make the question **vanish** after a certain period. \
 The timer will make the question automatically continue to the next question after the time is up, \
-and will log the mistakes for that question as 'time'. Vanish will make the question disappear after a \
+and will log the mistakes for that question as '9999'. Vanish will make the question disappear after a \
 time limit. Entering an incorrect answer will make the question reappear.
 """
 

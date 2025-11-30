@@ -222,7 +222,11 @@ class QuestionUI(Widget):
         self.flash_class(self, "incorrect")
         qdata = self.question
         answerdata = AnswerData(
-            qdata.symbol, qdata.left, qdata.right, self.timer, "time"
+            qdata.symbol,
+            qdata.left,
+            qdata.right,
+            self.timer,
+            9999,
         )
         self.answer_data[self.question_number.current] = answerdata
         self.new_question()
