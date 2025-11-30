@@ -1,5 +1,5 @@
 [project]
-name = "mmath"
+name = "mentalmath"
 version = "0.1.0"
 description = "A mental math training app."
 readme = "README.md"
