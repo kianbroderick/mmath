@@ -41,7 +41,13 @@ uv pip install -e .
 to clone the repository and install the program to a virtual environment.
 
 ### 2. Using `pip`
-`mmath` can be installed with pip with the following commands:
+Install `mmath` to your global or virtual environment with
+```
+pip install mentalmath
+```
+Run the application with `mmath`.
+
+`mmath` can be built from source with the following commands:
 ```
 git clone https://github.com/kianbroderick/mmath.git
 cd mmath
