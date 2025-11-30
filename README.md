@@ -13,12 +13,9 @@ There are many resources available that detail methods to calculate quickly and 
 - <a href="https://a.co/d/gnyceGX">Secrets of Mental Math,</a> by Arthur Benjamin and Michael Shermer
 
 ## Gallery
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-  <img src="./img/main_menu.png" alt="Main Menu" style="width: 50%; height: auto;">
-  <img src="./img/question.png" alt="Question Screen" style="width: 50%; height: auto;">
-  <img src="./img/end_screen.png" alt="End Screen" style="width: 50%; height: auto;">
-  <img src="./img/data_screen.png" alt="Data Screen" style="width: 50%; height: auto;">
-</div>
+| ![Main Menu](./img/main_menu.png)  | ![Question Screen](./img/question.png)  |
+|------------------------------------|----------------------------------------|
+| ![End Screen](./img/end_screen.png)| ![Data Screen](./img/data_screen.png)  |
 
 ## Usage
 Run `mmath` from the command line to start the application. Press `h` to view the help screen which details the options.
