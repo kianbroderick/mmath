@@ -61,4 +61,4 @@ mmath
 - add score tracking and statistics over multiple sessions
 
 ## License
-`mmath` is lisensed under the terms of the MIT License.
+`mmath` is licensed under the terms of the MIT License.
