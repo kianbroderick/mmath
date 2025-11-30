@@ -59,6 +59,7 @@ class MainMenu(Widget):
         }
         Input {
             max-width: 80;
+            width: 60%;
         }
     }
     """
