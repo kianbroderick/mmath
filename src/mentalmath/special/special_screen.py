@@ -5,12 +5,12 @@ from textual.containers import Grid
 from textual.screen import Screen
 from textual.widgets import Button, Footer
 
-from mmath.config import CONFIG
-from mmath.operations import default
-from mmath.questions.question_screen import QuestionScreen
-from mmath.special.num_questions_screen import NumberOfQuestionsScreen
-from mmath.special.powers import ConfigurePowersScreen
-from mmath.special.times_tables import ConfigureTimesTablesScreen
+from mentalmath.config import CONFIG
+from mentalmath.operations import default
+from mentalmath.questions.question_screen import QuestionScreen
+from mentalmath.special.num_questions_screen import NumberOfQuestionsScreen
+from mentalmath.special.powers import ConfigurePowersScreen
+from mentalmath.special.times_tables import ConfigureTimesTablesScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult

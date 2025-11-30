@@ -7,13 +7,13 @@ from textual.containers import Center, Container, Grid, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, DataTable, Footer, Label
 
-from mmath.config import CONFIG
+from mentalmath.config import CONFIG
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
     from textual.binding import BindingType
 
-    from mmath.operations import AnswerData
+    from mentalmath.operations import AnswerData
 
 
 class DataScreen(Screen):

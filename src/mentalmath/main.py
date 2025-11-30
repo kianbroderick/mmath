@@ -6,10 +6,10 @@ from textual.containers import Center
 from textual.theme import Theme
 from textual.widgets import Button, Footer, Input, Static
 
-from mmath.menus.mainmenu import MainMenu
-from mmath.menus.maxes_screen import InputMaxesScreen
-from mmath.questions.question_screen import QuestionScreen
-from mmath.special.special_screen import SelectSpecialScreen
+from mentalmath.menus.mainmenu import MainMenu
+from mentalmath.menus.maxes_screen import InputMaxesScreen
+from mentalmath.questions.question_screen import QuestionScreen
+from mentalmath.special.special_screen import SelectSpecialScreen
 
 if TYPE_CHECKING:
     from textual.binding import BindingType

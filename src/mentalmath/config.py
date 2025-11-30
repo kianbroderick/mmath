@@ -1,7 +1,7 @@
 from calendar import Calendar
 from typing import TYPE_CHECKING
 
-from mmath.operations import (
+from mentalmath.operations import (
     Addition,
     Calendar,
     CelsiusToFahrenheit,

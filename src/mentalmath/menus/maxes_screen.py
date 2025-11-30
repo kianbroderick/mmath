@@ -11,8 +11,8 @@ from textual.screen import Screen
 from textual.validation import Number
 from textual.widgets import Button, Footer, Input, Label, Switch
 
-from mmath.config import CONFIG
-from mmath.operations import display_text
+from mentalmath.config import CONFIG
+from mentalmath.operations import display_text
 
 if TYPE_CHECKING:
     from textual.binding import BindingType

@@ -12,10 +12,10 @@ from textual.widgets import (
 )
 from textual.widgets.selection_list import Selection
 
-from mmath.config import CONFIG
-from mmath.help_screen import HelpScreen
-from mmath.operations import display_text
-from mmath.special.special_screen import SelectSpecialScreen
+from mentalmath.config import CONFIG
+from mentalmath.help_screen import HelpScreen
+from mentalmath.operations import display_text
+from mentalmath.special.special_screen import SelectSpecialScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult

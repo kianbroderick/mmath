@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     from textual.app import ComposeResult
 
 
-from mmath.config import CONFIG
-from mmath.operations import AnswerData
+from mentalmath.config import CONFIG
+from mentalmath.operations import AnswerData
 
 
 class QuestionNumber(Widget):

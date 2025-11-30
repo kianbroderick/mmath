@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING, ClassVar
 from textual.screen import Screen
 from textual.widgets import Footer
 
-from mmath.data.data_screen import EndScreen
-from mmath.questions.question_widgets import QuestionUI
+from mentalmath.data.data_screen import EndScreen
+from mentalmath.questions.question_widgets import QuestionUI
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult

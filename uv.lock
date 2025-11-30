@@ -53,8 +53,8 @@ wheels = [
 ]
 
 [[package]]
-name = "mmath"
-version = "0.1.0"
+name = "mentalmath"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "textual" },

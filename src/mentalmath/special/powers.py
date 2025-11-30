@@ -5,7 +5,7 @@ from textual.screen import ModalScreen
 from textual.validation import Number
 from textual.widgets import Button, Footer, Input, Label, Switch
 
-from mmath.questions.question_screen import QuestionScreen
+from mentalmath.questions.question_screen import QuestionScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
