@@ -14,10 +14,10 @@ There are many resources available that detail methods to calculate quickly and 
 
 ## Gallery
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-  <img src="./img/main_menu.png" alt="Main Menu" style="width: 100%; height: auto;">
-  <img src="./img/question.png" alt="Question Screen" style="width: 100%; height: auto;">
-  <img src="./img/end_screen.png" alt="End Screen" style="width: 100%; height: auto;">
-  <img src="./img/data_screen.png" alt="Data Screen" style="width: 100%; height: auto;">
+  <img src="./img/main_menu.png" alt="Main Menu" style="width: 50%; height: auto;">
+  <img src="./img/question.png" alt="Question Screen" style="width: 50%; height: auto;">
+  <img src="./img/end_screen.png" alt="End Screen" style="width: 50%; height: auto;">
+  <img src="./img/data_screen.png" alt="Data Screen" style="width: 50%; height: auto;">
 </div>
 
 ## Usage
