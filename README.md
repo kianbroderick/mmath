@@ -21,15 +21,40 @@ There are many resources available that detail methods to calculate quickly and 
 Run `mmath` from the command line to start the application. Press `h` to view the help screen which details the options.
 
 # Installation
-With `uv`, run 
+### 1. With `uv`
+`mmath` can be run with `uv` with the command
+```
+uvx mentalmath
+```
+It can be installed with
+```
+uv tool install mentalmath
+```
+and then run with `mmath` from the command line.
+
+To build from source with `uv`, run
 ```
 git clone https://github.com/kianbroderick/mmath.git
 cd mmath
-uv sync
-uv run mmath
+uv pip install -e .
 ```
-to clone and run the program.
+to clone the repository and install the program to a virtual environment.
 
+### 2. Using `pip`
+`mmath` can be installed with pip with the following commands:
+```
+git clone https://github.com/kianbroderick/mmath.git
+cd mmath
+```
+Install `textual` in either the global or virtual evironment with
+```
+pip install textual
+```
+Run the application with
+```
+pip install -e .
+mmath
+```
 # Future improvements
 - add a screen to type in memorized digits of pi or e
 - more operations
