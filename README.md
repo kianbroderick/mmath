@@ -21,8 +21,8 @@ There are many resources available that detail methods to calculate quickly and 
 Run `mmath` from the command line to start the application. Press `h` to view the help screen which details the options.
 
 # Installation
-### 1. With `uv`
-`mmath` can be run with `uv` with the command
+### 1. With <a href="https://docs.astral.sh/uv/">`uv`</a>
+`mmath` can be run with <a href="https://docs.astral.sh/uv/">`uv`</a> with the command
 ```
 uvx mentalmath
 ```
@@ -32,7 +32,7 @@ uv tool install mentalmath
 ```
 and then run with `mmath` from the command line.
 
-To build from source with `uv`, run
+To build from source with <a href="https://docs.astral.sh/uv/">`uv`</a>, run
 ```
 git clone https://github.com/kianbroderick/mmath.git
 cd mmath
