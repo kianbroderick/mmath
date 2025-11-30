@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class DataScreen(Screen):
     CSS_PATH = "../styles/data_screen.tcss"
     BINDINGS: ClassVar[list[BindingType]] = [
-        ("d,b", "go_back", "Close"),
+        ("escape,d", "go_back", "Close"),
         ("q", "sort_by_q", "Sort by question"),
         ("t", "sort_by_time", "Sort by time"),
         ("o", "sort_by_op", "Sort by operation"),
@@ -114,7 +114,7 @@ class EndScreen(ModalScreen):
 
     BINDINGS: ClassVar[list[BindingType]] = [
         ("d", "goto_data_screen", "Data"),
-        ("b", "mainmenu", "Exit to main menu"),
+        ("m", "mainmenu", "Exit to main menu"),
         ("r", "repeat", "Repeat"),
     ]
     CSS_PATH = "../styles/endscreen.tcss"
@@ -137,7 +137,7 @@ class EndScreen(ModalScreen):
             ),
             Container(Center(self.summary_table), id="summary_data_container"),
             Button("Data", variant="default", id="view_data_button"),
-            Button("Exit to menu", variant="error", id="no_repeat"),
+            Button("Exit to menu", variant="warning", id="no_repeat"),
             Button("Repeat", variant="success", id="yes_repeat"),
             id="dialog",
         )

@@ -3,7 +3,7 @@ SelectSpecialScreen {
     .special_button {
         margin: 1 1;
         padding: 1;
-        background: $secondary;
+        background: $panel;
         width: 100%;
     }
     .back_button {

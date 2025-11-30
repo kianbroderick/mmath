@@ -111,7 +111,7 @@ class Content(VerticalScroll, can_focus=False): ...
 
 class HelpScreen(ModalScreen):
     CSS_PATH = "styles/help_screen.tcss"
-    BINDINGS = [("q,b,h,escape", "close", "Close")]
+    BINDINGS = [("escape", "close", "Close")]
 
     def compose(self) -> ComposeResult:
         with Content():

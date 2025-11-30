@@ -1,11 +1,14 @@
 [project]
 name = "mmath"
 version = "0.1.0"
-description = "Add your description here"
+description = "A mental math training app."
 readme = "README.md"
 requires-python = ">=3.14"
+license = "MIT"
+authors = [
+  { name = "Kian Broderick", email = "me@kianbroderick.com" },
+]
 dependencies = [
-    "pytest>=9.0.1",
     "textual>=6.6.0",
 ]
 

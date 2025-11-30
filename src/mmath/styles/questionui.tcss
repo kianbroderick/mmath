@@ -2,7 +2,7 @@ QuestionScreen {
     align-horizontal: center;
     QuestionUI {
         max-width: 110;
-        border: thick $secondary;
+        border: thick $primary;
         align-horizontal: center;
     }
     QuestionUI ProgressBar {
@@ -63,7 +63,8 @@ QuestionScreen {
     }
 
     QuestionNumber Digits {
-        width: 14;
+        min-width: 14;
+        width: auto;
         border: solid $primary;
         text-align: center;
         margin: 0 1;

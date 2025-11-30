@@ -2,6 +2,7 @@
 #logo {
     height: auto;
     width: auto;
+    color: $primary;
 }
 
 #mainmenu {

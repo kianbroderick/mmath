@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, ClassVar
 from textual import on, work
 from textual.app import App, ComposeResult
 from textual.containers import Center
+from textual.theme import Theme
 from textual.widgets import Button, Footer, Input, Static
 
 from mmath.menus.mainmenu import MainMenu
@@ -18,19 +19,40 @@ class Logo(Static):
     DEFAULT_CSS = """
         Logo {
             content-align: center middle;
-            height: auto;   /* works because Static auto-sizes */
+            height: auto;
         }
     """
-    logo = """[bold][blue]
+    logo = """[bold]
                           __   __
 .--------.--------.---.-.|  |_|  |--.
 |        |        |  _  ||   _|     |
 |__|__|__|__|__|__|___._||____|__|__|
-[/bold][/blue]
+[/bold]
 """
 
     def render(self) -> str:
         return self.logo
+
+
+mmath_theme = Theme(
+    name="mmath",
+    primary="#30C5FF",
+    secondary="#A0DDE6",
+    accent="#5C946E",
+    foreground="#D8DEE9",
+    background="#2A2D34",
+    success="#D2FF28",
+    warning="#FF6F59",
+    error="#B80C09",
+    surface="#3B4252",
+    panel="#427AA1",
+    dark=True,
+    variables={
+        "block-cursor-text-style": "none",
+        "footer-key-foreground": "#88C0D0",
+        "input-selection-background": "#81a1c1 35%",
+    },
+)
 
 
 class MentalMathApp(App):
@@ -44,6 +66,13 @@ class MentalMathApp(App):
         yield Center(Logo(id="logo"))
         yield self.mainmenu
         yield Footer()
+
+    def on_mount(self) -> None:
+        # Register the theme
+        self.register_theme(mmath_theme)
+
+        # Set the app's theme
+        self.theme = "mmath"
 
     BINDINGS: ClassVar[list[BindingType]] = [
         ("q", "quit", "Quit"),

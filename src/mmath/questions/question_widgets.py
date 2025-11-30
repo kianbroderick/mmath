@@ -119,7 +119,7 @@ class QuestionUI(Widget):
         if not self.question_timer:
             self.query_one(ProgressBar).visible = False
         self.new_question()
-        self.update_timer = self.set_interval(1 / 60, self.update_time)
+        self.update_timer = self.set_interval(1 / 100, self.update_time)
 
     def update_time(self) -> None:
         """Method to update time to current."""

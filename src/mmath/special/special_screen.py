@@ -24,7 +24,7 @@ def convert_snake_case(string: str) -> str:
 class SelectSpecialScreen(Screen):
     SCOPED_CSS = True
     CSS_PATH = "../styles/special_screen.tcss"
-    BINDINGS: ClassVar[list[BindingType]] = [("b", "go_back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("escape", "go_back", "Back")]
 
     def compose(self) -> ComposeResult:
         with Grid(id="special_grid"):

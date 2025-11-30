@@ -54,7 +54,7 @@ class ConfigurePowersScreen(ModalScreen):
             self.timer_input = Input(
                 type="number",
                 id="timer_input",
-                placeholder="Enter a number",
+                placeholder="Time in seconds",
                 validators=[Number(minimum=0.0001)],
                 validate_on=("changed",),
             )
@@ -68,7 +68,7 @@ class ConfigurePowersScreen(ModalScreen):
             self.vanish_input = Input(
                 type="number",
                 id="vanish_input",
-                placeholder="Enter a number",
+                placeholder="Time in seconds",
                 validators=[Number(minimum=0.0001)],
                 validate_on=("changed",),
             )

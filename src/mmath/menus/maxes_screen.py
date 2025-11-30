@@ -41,7 +41,7 @@ class InputMaxes(Vertical, can_focus=False):
 
 class InputMaxesScreen(Screen):
     CSS_PATH = "../styles/maxes_screen.tcss"
-    BINDINGS: ClassVar[list[BindingType]] = [("b", "go_back", "Back")]
+    BINDINGS: ClassVar[list[BindingType]] = [("escape", "go_back", "Back")]
 
     def __init__(self, selected_operations: list[str]) -> None:
         self.selected_operations = selected_operations
@@ -63,16 +63,16 @@ class InputMaxesScreen(Screen):
         self.timer_input = Input(
             type="number",
             id="timer_input",
-            placeholder="Enter a number",
-            validators=[Number(minimum=0.0001)],
+            placeholder="Time in seconds",
+            validators=[Number(minimum=0.0000001)],
             validate_on=("changed",),
         )
         self.timer_input.visible = False
         self.vanish_input = Input(
             type="number",
             id="vanish_input",
-            placeholder="Enter a number",
-            validators=[Number(minimum=0.0001)],
+            placeholder="Time in seconds",
+            validators=[Number(minimum=0.0000001)],
             validate_on=("changed",),
         )
         self.vanish_input.visible = False
