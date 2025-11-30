@@ -23,8 +23,8 @@ Run `mmath` from the command line to start the application. Press `h` to view th
 # Installation
 With `uv`, run 
 ```
-git clone https://github.com/kianbroderick/mmath_tui.git
-cd mmath_tui
+git clone https://github.com/kianbroderick/mmath.git
+cd mmath
 uv sync
 uv run mmath
 ```
