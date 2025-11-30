@@ -1,5 +1,5 @@
 # mmath
-A mental math training TUI application.
+A mental math training TUI application. Built with Python using the `textual` library.
 
 ## Features
 - Many operations, including arithmetic, exponents, fractions, complex numbers, unit conversions, and day of the week questions.
