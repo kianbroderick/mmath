@@ -299,6 +299,24 @@ class SquareRoot(QuestionInfo):
             return False
 
 
+class PerfectSquareRoot(QuestionInfo):
+    textual_input_type = "integer"
+    input_restrictions = None
+
+    def new(self, top: int) -> None:
+        self.symbol = "sqrt"
+        num = floor(sqrt(top))
+        self.correct = random.randint(1, num)
+        self.left = self.correct**2
+        self.display = f"√{self.left}"
+
+    def verify_correct(self, usr_input: str) -> bool:
+        try:
+            return int(usr_input) == self.correct
+        except ValueError:
+            return False
+
+
 class ComplexMultiplication(QuestionInfo):
     textual_input_type = "text"
     input_restrictions = r"[\+\-\*\s0123456789iIjJ]*"

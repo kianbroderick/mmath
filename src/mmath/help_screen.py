@@ -63,10 +63,16 @@ and you may use **i**, **I**, **j**, or **J** as the imaginary unit. The multipl
 SQUARE_ROOT_MD = """\
 **Square root** asks you to calculate the square root of a given number. \
 You must answer within 1% of the interval defined by the exact solution and the approximation after one iteration of the Newton-Raphson method. \
-The upper and lower bounds are rounded up and down to the nearest integer, respectively. \n
+The upper and lower bounds are rounded up and down to the nearest integer, respectively. \
+The **max** number is the maximum number to square root. \n
+**Perfect square root** asks you to calculate the square root of a given perfect square. \
+The exact integer solution is required. \
+The **max** number is the maximum number to square root. \n
+
 **Newton-Raphson Method**\n
 Let **n** be the number you are attempting to square root, **x** be your first guess, and **y** be your solution. \n
 y = x - (x^2 - n) / (2 * x)
+
 """
 
 CONVERSIONS_MD = """\

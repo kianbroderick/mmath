@@ -2,16 +2,23 @@
 A mental math training TUI application. Built with Python using the `textual` library.
 
 ## Features
-- Many operations, including arithmetic, exponents, fractions, complex numbers, unit conversions, and day of the week questions.
-- Supports quizzes with an arbitrary number of questions and maximum number limit.
-- Options to set a limit on the time per question and make the question vanish after a time.
-- Detailed data screen
+- Covers many of the standard mental math challenges, including arithmetic, exponents, fractions, complex numbers, unit conversions, and day of the week questions.
+- Supports quizzes with an arbitrary maximum number limit and number of questions.
+- Options to set a limit on the time per question and make the question vanish after a specified period.
+- Detailed data screen with options to question type, question time, or number of mistakes
+
+## Guides
+There are many resources available that detail methods to calculate quickly and accurately.
+- <a href="https://worldmentalcalculation.com/advanced-calculation-methods/">World Mental Calculation</a>
+- <a href="https://a.co/d/gnyceGX">Secrets of Mental Math,</a> by Arthur Benjamin and Michael Shermer
 
 ## Gallery
-![Main Menu](./img/main_menu.png)
-![Question Screen](./img/question.png)
-![End Screen](./img/end_screen.png)
-![Data Screen](./img/data_screen.png)
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+  <img src="./img/main_menu.png" alt="Main Menu" style="width: 100%; height: auto;">
+  <img src="./img/question.png" alt="Question Screen" style="width: 100%; height: auto;">
+  <img src="./img/end_screen.png" alt="End Screen" style="width: 100%; height: auto;">
+  <img src="./img/data_screen.png" alt="Data Screen" style="width: 100%; height: auto;">
+</div>
 
 ## Usage
 Run `mmath` from the command line to start the application. Press `h` to view the help screen which details the options.
@@ -29,7 +36,7 @@ to clone and run the program.
 # Future improvements
 - add a screen to type in memorized digits of pi or e
 - more operations
-- add score tracking and statistics over multiple runs
+- add score tracking and statistics over multiple sessions
 
 ## License
-`mmath` is liscense under the terms of the MIT License.
+`mmath` is lisensed under the terms of the MIT License.
