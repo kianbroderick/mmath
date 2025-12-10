@@ -112,6 +112,7 @@ class AnswerData:
     right: float | None
     time: float
     number_of_errors: int | str
+    out_of_time: bool
 
 
 class TimesTables(QuestionInfo):

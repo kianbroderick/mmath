@@ -114,7 +114,7 @@ class EndScreen(ModalScreen):
 
     BINDINGS: ClassVar[list[BindingType]] = [
         ("d", "goto_data_screen", "Data"),
-        ("m", "mainmenu", "Exit to main menu"),
+        ("escape", "mainmenu", "Exit to main menu"),
         ("r", "repeat", "Repeat"),
     ]
     CSS_PATH = "../styles/endscreen.tcss"
@@ -122,17 +122,26 @@ class EndScreen(ModalScreen):
     def action_mainmenu(self) -> None:
         self.dismiss("")
 
-    def __init__(self, data: dict[int, AnswerData]) -> None:
+    def __init__(self, data: dict[int, AnswerData], used_timer: bool) -> None:
         super().__init__()
         self.data = data
+        self.used_timer = used_timer
 
     def compose(self) -> ComposeResult:
         total_time = sum([a.time for a in self.data.values()])
+        total_out_of_time = sum([a.out_of_time for a in self.data.values()])
+        oot_message: str = (
+            f"Ran out of time on {total_out_of_time} questions.\n"
+            if self.used_timer
+            else "\n"
+        )
         number_of_questions = len(self.data)
         self.summary_table = DataTable(id="summary_data")
         yield Grid(
             Label(
-                f"Completed {number_of_questions} questions in {total_time:.2f} seconds. Again?",
+                f"Completed {number_of_questions} questions in {total_time:.2f} seconds.\n"
+                + oot_message
+                + "Again?",
                 id="question",
             ),
             Container(Center(self.summary_table), id="summary_data_container"),

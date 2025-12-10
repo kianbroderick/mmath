@@ -201,7 +201,12 @@ class QuestionUI(Widget):
             self.answer_box.answer_box.clear()
             qdata = self.question
             answerdata = AnswerData(
-                qdata.symbol, qdata.left, qdata.right, self.timer, self.n_err
+                qdata.symbol,
+                qdata.left,
+                qdata.right,
+                self.timer,
+                self.n_err,
+                out_of_time=False,
             )
             self.answer_data[self.question_number.current] = answerdata
             self.new_question()
@@ -225,8 +230,9 @@ class QuestionUI(Widget):
             qdata.symbol,
             qdata.left,
             qdata.right,
-            self.timer,
-            9999,
+            min(self.timer, self.question_timer),
+            self.n_err,
+            out_of_time=True,
         )
         self.answer_data[self.question_number.current] = answerdata
         self.new_question()

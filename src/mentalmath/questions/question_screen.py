@@ -47,7 +47,9 @@ class QuestionScreen(Screen):
         yield Footer()
 
     async def on_question_ui_finished(self) -> None:
-        selected = await self.app.push_screen_wait(EndScreen(self.qui.answer_data))
+        selected = await self.app.push_screen_wait(
+            EndScreen(self.qui.answer_data, bool(self.qui.question_timer))
+        )
         if selected == "yes_repeat":
             self.qui.question_number.current = 0
             self.qui.new_question()

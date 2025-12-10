@@ -12,9 +12,10 @@ EndScreen {
 
 #question {
     column-span: 3;
-    height: 1fr;
+    height: auto;
     width: 1fr;
     content-align: center middle;
+    text-align: center;
     border: tall $secondary;
 }
 
