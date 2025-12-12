@@ -5,7 +5,7 @@ A mental math training TUI application. Built with Python using the `textual` li
 - Covers many of the standard mental math challenges, including arithmetic, exponents, fractions, complex numbers, unit conversions, and day of the week questions.
 - Supports quizzes with an arbitrary maximum number limit and number of questions.
 - Options to set a limit on the time per question and make the question vanish after a specified period.
-- Detailed data screen with options to question type, question time, or number of mistakes
+- Detailed data screen with options to question type, question time, or number of mistakes.
 
 ## Guides
 There are many resources available that detail methods to calculate quickly and accurately.
