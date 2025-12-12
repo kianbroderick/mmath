@@ -57,7 +57,9 @@ COMPLEX_MD = """\
 **Complex multiplication** of two complex numbers a + bi and c + di is computed as \n
 (a + b\\*i) * (c + d\\*i) = (a*c - b*d) + (a*d + b*c)*i. \n
 Enter your solution as a sum of the real part and the imaginary part. The real part must come first, \
-and you may use **i**, **I**, **j**, or **J** as the imaginary unit. The multiplication sign between the imaginary part and **i** is optional.
+and you may use **i**, **I**, **j**, or **J** as the imaginary unit. \
+Both the real and imaginary parts are required, even if one or both of them is zero. \
+The multiplication sign between the imaginary part and **i** is optional.
 """
 
 SQUARE_ROOT_MD = """\
